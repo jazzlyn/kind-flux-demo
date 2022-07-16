@@ -36,3 +36,43 @@ spec:
         database: keycloak
     logging:
       output: json
+    ## ref: https://github.com/adorsys/keycloak-config-cli
+    keycloakConfigCli:
+      enabled: true
+      image:
+        registry: docker.io
+        repository: bitnami/keycloak-config-cli
+        ## ref: https://hub.docker.com/r/bitnami/keycloak-config-cli/tags/
+        tag: 5.2.1
+      resources:
+        limits: {}
+        requests: {}
+      ## @param keycloakConfigCli.extraEnvVars Additional environment variables to set
+      ## Example:
+      ## extraEnvVars:
+      ##   - name: FOO
+      ##     value: "bar"
+      ##
+      extraEnvVars: []
+      ## @param keycloakConfigCli.extraEnvVarsCM ConfigMap with extra environment variables
+      ##
+      extraEnvVarsCM: ""
+      ## @param keycloakConfigCli.configuration keycloak-config-cli realms configuration
+      ## NOTE: nil keys will be considered files to import locally
+      ## Example:
+      ## configuration:
+      ##   realm1.json: |
+      ##     {
+      ##       "realm": "realm1",
+      ##       "clients": []
+      ##     }
+      ##   files/realm2.yaml:
+      ##   realm3.yaml: |
+      ##     realm: realm3
+      ##     clients: []
+      ##
+      configuration: {}
+      ## @param keycloakConfigCli.existingConfigmap ConfigMap with keycloak-config-cli configuration. This will override `keycloakConfigCli.config`
+      ## NOTE: This will override keycloakConfigCli.configuration
+      ##
+      existingConfigmap: "keycloak-config.yaml"

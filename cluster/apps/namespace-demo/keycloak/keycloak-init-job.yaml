@@ -1,0 +1,47 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: keycloak-init-job
+spec:
+  completions: 1
+  template:
+    metadata:
+      name: keycloak-init-job
+    spec:
+      containers:
+      - name: keycloak
+        image: jboss/keycloak:16.1.1
+        env:
+        - name: KUBERNETES_NAMESPACE
+          valueFrom:
+            fieldRef:
+              apiVersion: v1
+              fieldPath: metadata.namespace
+        - name: BITNAMI_DEBUG
+          value: "false"
+        - name: KEYCLOAK_ADMIN_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              key: admin-password
+              name: keycloak
+        - name: KEYCLOAK_MANAGEMENT_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              key: management-password
+              name: keycloak
+        - name: KEYCLOAK_DATABASE_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              key: password
+              name: keycloak-postgresql
+        - name: KEYCLOAK_HTTP_RELATIVE_PATH
+          value: /
+        envFrom:
+        - configMapRef:
+            name: keycloak-env-vars
+        command:
+        - /bin/sh
+        args:
+        - -c
+        - /opt/jboss/keycloak/bin/kcadm.sh create realms -s realm=test -f /resources/default-realm.json --server http://localhost:8080/auth --realm master --user admin --password admin
+      restartPolicy: OnFailure
