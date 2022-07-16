@@ -47,7 +47,7 @@ spec:
         - /bin/sh
         args: # yamllint disable-line rule:line-length
         - -c
-        - /opt/jboss/keycloak/bin/kcadm.sh create realms -s realm=test -f /init/resources/default-realm.json --server http://localhost:8080/auth --realm master --user admin --password admin
+        - /opt/jboss/keycloak/bin/kcadm.sh create realms -s realm=test -f init/resources/default-realm.json --server http://localhost:8080/auth --realm master --user admin --password admin
       volumes:
       - name: keycloak-init-job-volume
         configMap:
