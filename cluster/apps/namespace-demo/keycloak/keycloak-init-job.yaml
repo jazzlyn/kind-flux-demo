@@ -54,5 +54,5 @@ spec:
           name: keycloak-init-job-configmap
           items:
           - key: default-realm.json
-            path: /init/resources/default-realm.json
+            path: init/resources/default-realm.json
       restartPolicy: OnFailure
