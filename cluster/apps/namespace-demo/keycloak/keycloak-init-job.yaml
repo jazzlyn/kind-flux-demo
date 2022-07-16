@@ -1,3 +1,4 @@
+---
 apiVersion: batch/v1
 kind: Job
 metadata:
@@ -39,9 +40,19 @@ spec:
         envFrom:
         - configMapRef:
             name: keycloak-env-vars
+        volumeMounts:
+        - name: keycloak-init-job-volume
+          mountPath: /init
         command:
         - /bin/sh
-        args:
+        args: # yamllint disable-line rule:line-length
         - -c
-        - /opt/jboss/keycloak/bin/kcadm.sh create realms -s realm=test -f /resources/default-realm.json --server http://localhost:8080/auth --realm master --user admin --password admin
+        - /opt/jboss/keycloak/bin/kcadm.sh create realms -s realm=test -f resources/default-realm.json --server http://localhost:8080/auth --realm master --user admin --password admin
+      volumes:
+      - name: keycloak-init-job-volume
+        configMap:
+          name: keycloak-init-job-configmap
+          items:
+          - key: default-realm.json
+            path: resources/default-realm.json
       restartPolicy: OnFailure

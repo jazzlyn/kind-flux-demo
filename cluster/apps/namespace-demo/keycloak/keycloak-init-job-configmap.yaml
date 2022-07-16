@@ -1,0 +1,30 @@
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: keycloak-init-job-configmap
+data:
+  default-realm.json: |
+    {
+      "enabled": true,
+      "roles": {
+        "realm": [
+          {
+            "name": "view-topic-planning"
+          },
+          {
+            "name": "view-blacklist"
+          },
+          {
+            "name": "view-article-report"
+          },
+          {
+            "name": "view-position-report"
+          }
+        ]
+      }
+    }
+  theme.properties: | # yamllint disable-line rule:line-length
+    parent=keycloak
+    import=common/keycloak
+    styles=node_modules/patternfly/dist/css/patternfly.css node_modules/patternfly/dist/css/patternfly-additions.css lib/zocial/zocial.css css/login.css css/styles.css
