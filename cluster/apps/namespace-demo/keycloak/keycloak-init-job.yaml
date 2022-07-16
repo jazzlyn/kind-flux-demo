@@ -7,7 +7,7 @@ spec:
   completions: 1
   template:
     metadata:
-      name: keycloak-init-job
+      name: keycloak-init
     spec:
       containers:
       - name: keycloak
