@@ -36,3 +36,4 @@ spec:
         database: keycloak
     logging:
       output: json
+    # metrics tbd
