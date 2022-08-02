@@ -40,6 +40,9 @@ spec:
         envFrom:
         - configMapRef:
             name: keycloak-env-vars
+        volumeMounts:
+        - name: resources
+          mountPath: /opt/jboss/keycloak/resources
         command:
         - /bin/sh
         args: # yamllint disable-line rule:line-length
@@ -51,6 +54,12 @@ spec:
           /opt/jboss/keycloak/bin/kcadm.sh set-password -r testrealm --username admin --new-password admin --temporary --server http://keycloak.namespace-demo.svc.cluster.local --realm master --user admin --password admin &&
           /opt/jboss/keycloak/bin/kcadm.sh add-roles -r testrealm --uusername admin --rolename view-topic-planning --rolename view-blacklist --rolename view-article-report --server http://keycloak.namespace-demo.svc.cluster.local --realm master --user admin --password admin &&
           /opt/jboss/keycloak/bin/kcadm.sh add-roles -r testrealm --uusername admin --cclientid realm-management --rolename manage-users --rolename view-users --server http://keycloak.namespace-demo.svc.cluster.local --realm master --user admin --password admin
-
         # - /opt/jboss/keycloak/bin/kcadm.sh create clients -r testrealm -s clientId=client-app -s enabled=true -s publicClient=true -s baseUrl=https://agents.integration.strg.at  -s adminUrl=https://agents.integration.strg.at  -s "redirectUris=[\"https://agents.integration.strg.at/*\"]" -s "webOrigins=[\"https://agents.integration.strg.at\"]" --server http://keycloak.namespace-demo.svc.cluster.local --realm master --user admin --password
+      volumes:
+      - name: resources
+        configMap:
+          name: keycloak-init-job-configmap-resources
+          items:
+          - key: default-realm.json
+            path: default-realm.json
       restartPolicy: OnFailure

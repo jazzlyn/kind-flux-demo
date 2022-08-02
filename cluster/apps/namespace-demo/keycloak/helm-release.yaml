@@ -48,16 +48,16 @@ spec:
           path: login/resources/images/logo.svg
         - key: theme.properties
           path: login/theme.properties
-    - name: resources
-      configMap:
-        name: keycloak-init-job-configmap-resources
-        items:
-        - key: default-realm.json
-          path: default-realm.json
+    # - name: resources
+    #   configMap:
+    #     name: keycloak-init-job-configmap-resources
+    #     items:
+    #     - key: default-realm.json
+    #       path: default-realm.json
     extraVolumeMounts:
     - name: themes-agents
       mountPath: /opt/bitnami/keycloak/themes/agents
-    - name: resources
-      mountPath: /opt/bitnami/keycloak/resources
+    # - name: resources
+    #   mountPath: /opt/bitnami/keycloak/resources
     service:
       type: ClusterIP
