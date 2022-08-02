@@ -49,7 +49,8 @@ spec:
         - -c
         - |
           /opt/jboss/keycloak/bin/kcadm.sh update realms/master -s loginTheme=agents --server http://keycloak.namespace-demo.svc.cluster.local --realm master --user admin --password admin &&
-          /opt/jboss/keycloak/bin/kcadm.sh create realms -s realm=testrealm -f resources/default-realm.json --server http://keycloak.namespace-demo.svc.cluster.local --realm master --user admin --password admin &&
+          ls -la && pwd &&
+          /opt/jboss/keycloak/bin/kcadm.sh create realms -s realm=testrealm -f /opt/jboss/keycloak/resources/default-realm.json --server http://keycloak.namespace-demo.svc.cluster.local --realm master --user admin --password admin &&
           /opt/jboss/keycloak/bin/kcadm.sh create users -r testrealm -s username=admin -s enabled=true --server http://keycloak.namespace-demo.svc.cluster.local --realm master --user admin --password admin &&
           /opt/jboss/keycloak/bin/kcadm.sh set-password -r testrealm --username admin --new-password admin --temporary --server http://keycloak.namespace-demo.svc.cluster.local --realm master --user admin --password admin &&
           /opt/jboss/keycloak/bin/kcadm.sh add-roles -r testrealm --uusername admin --rolename view-topic-planning --rolename view-blacklist --rolename view-article-report --server http://keycloak.namespace-demo.svc.cluster.local --realm master --user admin --password admin &&
