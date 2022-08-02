@@ -37,3 +37,25 @@ spec:
     logging:
       output: json
     # metrics tbd
+    extraVolumes:
+    - name: themes-agents
+      configMap:
+        name: keycloak-init-job-configmap-themes-agents
+        items:
+        - key: styles.css
+          path: login/resources/css/styles.css
+        - key: logo.svg
+          path: login/resources/images/logo.svg
+        - key: theme.properties
+          path: login/theme.properties
+    - name: resources
+      configMap:
+        name: keycloak-init-job-configmap-resources
+        items:
+        - key: default-realm.json
+          path: default-realm.json
+    extraVolumeMounts:
+    - name: themes-agents
+      mountPath: /opt/jboss/keycloak/themes/agents
+    - name: resources
+      mountPath: /opt/jboss/keycloak/resources
