@@ -50,19 +50,19 @@ spec:
         args: # yamllint disable-line rule:line-length
         - -c
         # set the theme for master realm
-        - /opt/jboss/keycloak/bin/kcadm.sh update realms/master -s loginTheme=agents --server http://keycloak.namespace-demo.svc.cluster.local --realm master --user admin --password admin
+        - /opt/jboss/keycloak/bin/kcadm.sh update realms/master -s loginTheme=agents --server http://keycloak.namespace-demo.svc.cluster.local/auth --realm master --user admin --password admin
         # create the first realm
-        - /opt/jboss/keycloak/bin/kcadm.sh create realms -s realm=testrealm -f resources/default-realm.json --server http://keycloak.namespace-demo.svc.cluster.local --realm master --user admin --password admin
+        - /opt/jboss/keycloak/bin/kcadm.sh create realms -s realm=testrealm -f resources/default-realm.json --server http://keycloak.namespace-demo.svc.cluster.local/auth --realm master --user admin --password admin
         # add the first user
-        - /opt/jboss/keycloak/bin/kcadm.sh create users -r testrealm -s username=admin -s enabled=true --server http://keycloak.namespace-demo.svc.cluster.local --realm master --user admin --password admin
+        - /opt/jboss/keycloak/bin/kcadm.sh create users -r testrealm -s username=admin -s enabled=true --server http://keycloak.namespace-demo.svc.cluster.local/auth --realm master --user admin --password admin
         # set the default password for the user
-        - /opt/jboss/keycloak/bin/kcadm.sh set-password -r testrealm --username admin --new-password admin --temporary --server http://keycloak.namespace-demo.svc.cluster.local --realm master --user admin --password admin
+        - /opt/jboss/keycloak/bin/kcadm.sh set-password -r testrealm --username admin --new-password admin --temporary --server http://keycloak.namespace-demo.svc.cluster.local/auth --realm master --user admin --password admin
           # adding realm roles to the user
-        - /opt/jboss/keycloak/bin/kcadm.sh add-roles -r testrealm --uusername admin --rolename view-topic-planning --rolename view-blacklist --rolename view-article-report --server http://keycloak.namespace-demo.svc.cluster.local --realm master --user admin --password admin
+        - /opt/jboss/keycloak/bin/kcadm.sh add-roles -r testrealm --username admin --rolename view-topic-planning --rolename view-blacklist --rolename view-article-report --server http://keycloak.namespace-demo.svc.cluster.local/auth --realm master --user admin --password admin
         # adding client roles to the user
-        - /opt/jboss/keycloak/bin/kcadm.sh add-roles -r testrealm --uusername admin --cclientid realm-management --rolename manage-users --rolename view-users --server http://keycloak.namespace-demo.svc.cluster.local --realm master --user admin --password admin
+        - /opt/jboss/keycloak/bin/kcadm.sh add-roles -r testrealm --username admin --cclientid realm-management --rolename manage-users --rolename view-users --server http://keycloak.namespace-demo.svc.cluster.local/auth --realm master --user admin --password admin
           # adding the client, need dns first
-        # - /opt/jboss/keycloak/bin/kcadm.sh create clients -r testrealm -s clientId=client-app -s enabled=true -s publicClient=true -s baseUrl=https://agents.integration.strg.at  -s adminUrl=https://agents.integration.strg.at  -s "redirectUris=[\"https://agents.integration.strg.at/*\"]" -s "webOrigins=[\"https://agents.integration.strg.at\"]" --server http://keycloak.namespace-demo.svc.cluster.local --realm master --user admin --password
+        # - /opt/jboss/keycloak/bin/kcadm.sh create clients -r testrealm -s clientId=client-app -s enabled=true -s publicClient=true -s baseUrl=https://agents.integration.strg.at  -s adminUrl=https://agents.integration.strg.at  -s "redirectUris=[\"https://agents.integration.strg.at/*\"]" -s "webOrigins=[\"https://agents.integration.strg.at\"]" --server http://keycloak.namespace-demo.svc.cluster.local/auth --realm master --user admin --password
       volumes:
       - name: keycloak-init-job-volume-themes-agents
         configMap:
