@@ -56,8 +56,8 @@ spec:
           path: default-realm.json
     extraVolumeMounts:
     - name: themes-agents
-      mountPath: /opt/jboss/keycloak/themes/agents
+      mountPath: /opt/bitnami/keycloak/themes/agents
     - name: resources
-      mountPath: /opt/jboss/keycloak/resources
+      mountPath: /opt/bitnami/keycloak/resources
     service:
       type: ClusterIP
