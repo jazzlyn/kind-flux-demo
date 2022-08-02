@@ -2,7 +2,7 @@
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: keycloak-init-job-configmap
+  name: keycloak-init-job-configmap-resources
 data: # yamllint disable-line rule:line-length
   default-realm.json: |
     {

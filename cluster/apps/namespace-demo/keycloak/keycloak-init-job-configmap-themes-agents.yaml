@@ -2,7 +2,7 @@
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: keycloak-init-job-configmap
+  name: keycloak-init-job-configmap-themes-agents
 data: # yamllint disable-line rule:line-length
   theme.properties: |
     parent=keycloak
