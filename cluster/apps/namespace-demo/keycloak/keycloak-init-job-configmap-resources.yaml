@@ -1,0 +1,26 @@
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: keycloak-init-job-configmap
+data: # yamllint disable-line rule:line-length
+  default-realm.json: |
+    {
+      "enabled": true,
+      "roles": {
+        "realm": [
+          {
+            "name": "view-topic-planning"
+          },
+          {
+            "name": "view-blacklist"
+          },
+          {
+            "name": "view-article-report"
+          },
+          {
+            "name": "view-position-report"
+          }
+        ]
+      }
+    }
