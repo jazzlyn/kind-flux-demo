@@ -39,7 +39,7 @@ spec:
     metrics:
       enabled: true
       serviceMonitor:
-        enabled: true
+        enabled: false
     extraVolumes:
     - name: themes-agents
       configMap:
