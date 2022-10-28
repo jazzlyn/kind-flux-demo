@@ -23,8 +23,6 @@ spec:
     remediation:
       retries: 5
   values:
-    image:
-      tag: 2.1.0
     env:
       WEBSITE_NAME: "Docusaurus test site"
       TEMPLATE: classic
