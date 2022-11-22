@@ -26,10 +26,6 @@ spec:
       name: prometheus-values
   values:
     # https://artifacthub.io/packages/helm/prometheus-community/kube-prometheus-stack?modal=values
-    coreDns:
-      enabled: false
-    kubeDns:
-      enabled: true
     prometheusOperator:
       createCustomResource: false
     grafana:
