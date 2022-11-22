@@ -49,13 +49,6 @@ spec:
             kvstore:
               store: inmemory
 
-        query_range:
-          results_cache:
-            cache:
-              embedded_cache:
-                enabled: true
-                max_size_mb: 100
-
         schema_config:
           configs:
             - from: "2022-11-01"
