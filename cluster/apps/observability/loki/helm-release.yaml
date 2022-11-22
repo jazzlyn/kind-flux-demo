@@ -37,11 +37,9 @@ spec:
         limits_config:
           retention_period: 2d
 
-        common:
-          ring:
-            instance_addr: 127.0.0.1
-            kvstore:
-              store: inmemory
+        storage_config:
+          filesystem:
+            directory: /tmp/loki
 
         schema_config:
           configs:
