@@ -24,12 +24,12 @@ spec:
     # https://artifacthub.io/packages/helm/grafana/loki?modal=values
     # https://github.com/grafana/loki/blob/main/production/helm/loki/values.yaml
     loki:
+      serviceAccount:
+        annotations:
+          iam.gke.io/gcp-service-account: abc
+
       structuredConfig:
         auth_enabled: false
-
-        serviceAccount:
-          annotations:
-            iam.gke.io/gcp-service-account: abc
 
         memberlist:
           join_members: ["loki-memberlist"]
@@ -67,10 +67,6 @@ spec:
               index:
                 prefix: loki_index_
                 period: 24h
-          ring:
-            instance_addr: 127.0.0.1
-            kvstore:
-              store: inmemory
 
         ruler:
           enable_api: true
@@ -81,10 +77,6 @@ spec:
             local:
               directory: /rules
           rule_path: /tmp/scratch
-          ring:
-            instance_addr: 127.0.0.1
-            kvstore:
-              store: inmemory
 
         compactor:
           working_directory: /var/loki/boltdb-shipper-compactor
@@ -94,19 +86,8 @@ spec:
           retention_delete_delay: 2h
           retention_delete_worker_count: 150
 
-        distributor:
-          ring:
-            instance_addr: 127.0.0.1
-            kvstore:
-              store: inmemory
-
         ingester:
           max_chunk_age: 1h
-          lifecycler:
-            ring:
-              instance_addr: 127.0.0.1
-              kvstore:
-                store: inmemory
 
         analytics:
           reporting_enabled: false
