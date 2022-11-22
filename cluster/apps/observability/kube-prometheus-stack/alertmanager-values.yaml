@@ -11,7 +11,7 @@ alertmanager:
       group_wait: 30s
       group_interval: 5m
       repeat_interval: 12h
-      receiver: "slack-notifications"
+      receiver: "null"
       routes:
         - receiver: "null"
           matchers:
