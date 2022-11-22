@@ -8,7 +8,7 @@ alertmanager:
       slack_api_url: https://hooks.slack.com/services/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
     route:
       group_by: ["alertname", "job"]
-      group_wait: 1s
+      group_wait: 30s
       group_interval: 5m
       repeat_interval: 12h
       receiver: "slack-notifications"
@@ -26,15 +26,13 @@ alertmanager:
             send_resolved: true
             icon_url: https://avatars3.githubusercontent.com/u/3380462
             title: |-
-              [{{ .Status | toUpper }}{{ if eq .Status "firing" }}:{{ .Alerts.Firing | len }}{{ end }}]
+              [{{ .Status | toUpper }}{{ if eq .Status "firing" }}:{{ .Alerts.Firing | len }}{{ end }}] {{ .Annotations.summary }}
             text: >-
               {{ range .Alerts }}
-                *Alert:* {{ .Annotations.summary }} {{ if .Labels.severity }} - `{{ .Labels.severity }}`{{ end }}
+                *Severity:* {{ if .Labels.severity }} `{{ .Labels.severity }}`{{ else }}N/A{{ end }}
                 *Description:* {{ .Annotations.description }}
-                *Graph:* <{{ .GeneratorURL }}|:chart_with_upwards_trend:> *Runbook:* <{{ .Annotations.runbook }}|:spiral_note_pad:>
                 *Details:*
-                {{ range .Labels.SortedPairs }} • *{{ .Name }}:* `{{ .Value }}`
-                {{ end }}
+                {{ range .Labels.SortedPairs }} • *{{ .Name }}:* `{{ .Value }}`{{ end }}
               {{ end }}
   # alertmanagerSpec:
   #   storage:
