@@ -29,12 +29,11 @@ alertmanager:
               [{{ .Status | toUpper }}{{ if eq .Status "firing" }}:{{ .Alerts.Firing | len }}{{ end }}] {{ .Annotations.summary }}
             text: >-
               {{ range .Alerts }}
-                {{ if .Labels.severity }} *Severity:* `{{ .Labels.severity }}`{{ end }}
-
+                *Severity:* {{ if .Labels.severity }} `{{ .Labels.severity }}`{{else}}N/A{{ end }}
                 *Description:* {{ .Annotations.description }}
-
                 *Details:*
-                {{ range .Labels.SortedPairs }} • *{{ .Name }}:* `{{ .Value }}`{{ end }}
+                {{ range .Labels.SortedPairs }} • *{{ .Name }}:* `{{ .Value }}`
+                {{ end }}
               {{ end }}
   # alertmanagerSpec:
   #   storage:
