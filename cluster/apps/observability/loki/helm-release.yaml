@@ -39,7 +39,7 @@ spec:
 
         common:
           path_prefix: /tmp/loki
-          replication_factor: 3
+          replication_factor: 1
           storage:
             filesystem:
               chunks_directory: /tmp/loki/chunks
@@ -49,14 +49,12 @@ spec:
             kvstore:
               store: inmemory
 
-        # storage_config:
-        #   boltdb_shipper:
-        #     active_index_directory: /loki/boltdb-shipper-active
-        #     cache_location: /loki/boltdb-shipper-cache
-        #     cache_ttl: 24h
-        #     shared_store: gcs
-        #   gcs:
-        #     bucket_name: <bucket>
+        query_range:
+          results_cache:
+            cache:
+              embedded_cache:
+                enabled: true
+                max_size_mb: 100
 
         schema_config:
           configs:
@@ -72,15 +70,9 @@ spec:
           enable_api: true
           enable_alertmanager_v2: true
           alertmanager_url: http://prometheus-alertmanager.svc.cluster.local:9093
-          storage:
-            type: local
-            local:
-              directory: /rules
-          rule_path: /tmp/scratch
 
         compactor:
           working_directory: /var/loki/boltdb-shipper-compactor
-          shared_store: gcs
           compaction_interval: 10m
           retention_enabled: true
           retention_delete_delay: 2h
