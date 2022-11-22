@@ -1,0 +1,37 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: kube-prometheus-stack
+spec:
+  interval: 15m
+  chart:
+    spec:
+      chart: kube-prometheus-stack
+      version: 41.7.4
+      sourceRef:
+        kind: HelmRepository
+        name: prometheus-charts
+        namespace: flux-system
+  install:
+    remediation:
+      retries: 5
+  upgrade:
+    remediation:
+      retries: 5
+  valuesFrom:
+    - kind: ConfigMap
+      name: alertmanager-values
+    - kind: ConfigMap
+      name: prometheus-values
+  values:
+    # https://artifacthub.io/packages/helm/prometheus-community/kube-prometheus-stack?modal=values
+    coreDns:
+      enabled: false
+    kubeDns:
+      enabled: true
+    prometheusOperator:
+      createCustomResource: false
+    grafana:
+      enabled: false
+      forceDeployDashboards: true
