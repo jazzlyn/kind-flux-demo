@@ -38,12 +38,6 @@ spec:
           retention_period: 2d
 
         common:
-          path_prefix: /tmp/loki
-          replication_factor: 1
-          storage:
-            filesystem:
-              chunks_directory: /tmp/loki/chunks
-              rules_directory: /tmp/loki/rules
           ring:
             instance_addr: 127.0.0.1
             kvstore:
@@ -63,6 +57,11 @@ spec:
           enable_api: true
           enable_alertmanager_v2: true
           alertmanager_url: http://prometheus-alertmanager.svc.cluster.local:9093
+          storage:
+            type: local
+            local:
+              directory: /tmp/rules
+          rule_path: /tmp/scratch
 
         compactor:
           working_directory: /var/loki/boltdb-shipper-compactor
@@ -70,6 +69,7 @@ spec:
           retention_enabled: true
           retention_delete_delay: 2h
           retention_delete_worker_count: 150
+          shared_store: filesystem
 
         ingester:
           max_chunk_age: 1h
