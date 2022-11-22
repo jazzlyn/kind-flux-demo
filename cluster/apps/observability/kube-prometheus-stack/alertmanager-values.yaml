@@ -7,11 +7,11 @@ alertmanager:
       resolve_timeout: 5m
       slack_api_url: https://hooks.slack.com/services/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
     route:
-      group_by: ["alertname", "job"]
+      group_by: ["alertname", "job", "pod"]
       group_wait: 30s
       group_interval: 5m
       repeat_interval: 12h
-      receiver: "slack-notifications"
+      receiver: "null"
       routes:
         - receiver: "null"
           matchers:
