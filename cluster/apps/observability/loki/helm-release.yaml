@@ -37,19 +37,28 @@ spec:
         limits_config:
           retention_period: 2d
 
-        storage_config:
-          filesystem:
-            directory: /tmp/loki
+        common:
+          path_prefix: /var/loki
+          replication_factor: 3
+          storage:
+            type: gcs
+            bucket_name: <bucket>
+          ring:
+            kvstore:
+              store: memberlist
 
         schema_config:
           configs:
             - from: "2022-11-01"
               store: boltdb-shipper
-              object_store: filesystem
+              object_store: gcs
               schema: v11
               index:
                 prefix: loki_index_
                 period: 24h
+          ring:
+            kvstore:
+              store: memberlist
 
         ruler:
           enable_api: true
@@ -58,31 +67,43 @@ spec:
           storage:
             type: local
             local:
-              directory: /tmp/rules
+              directory: /rules
           rule_path: /tmp/scratch
+          ring:
+            kvstore:
+              store: memberlist
 
         compactor:
           working_directory: /var/loki/boltdb-shipper-compactor
+          shared_store: gcs
           compaction_interval: 10m
           retention_enabled: true
           retention_delete_delay: 2h
           retention_delete_worker_count: 150
-          shared_store: filesystem
+
+        distributor:
+          ring:
+            kvstore:
+              store: memberlist
 
         ingester:
           max_chunk_age: 1h
+          lifecycler:
+            ring:
+              kvstore:
+                store: memberlist
 
         analytics:
           reporting_enabled: false
 
-    # write:
-    #   persistence:
-    #     size: 10Gi
-    #     storageClass: standard
-    # read:
-    #   persistence:
-    #     size: 10Gi
-    #     storageClass: standard
+    write:
+      persistence:
+        size: 10Gi
+        storageClass: standard
+    read:
+      persistence:
+        size: 10Gi
+        storageClass: standard
 
     gateway:
       enabled: true
