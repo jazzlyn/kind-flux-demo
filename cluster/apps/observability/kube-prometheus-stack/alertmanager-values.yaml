@@ -26,7 +26,7 @@ alertmanager:
             send_resolved: true
             icon_url: https://avatars3.githubusercontent.com/u/3380462
             title: |-
-              [{{ .Status | toUpper }}{{ if eq .Status "firing" }}:{{ .Alerts.Firing | len }}{{ end }}] {{ .Annotations.summary }}
+              [{{ .Status | toUpper }}{{ if eq .Status "firing" }}:{{ .Alerts.Firing | len }}{{ end }}] {{ range .Alerts }}{{ .Annotations.summary }}{{end}}
             text: >-
               {{ range .Alerts }}
                 *Severity:* {{ if .Labels.severity }} `{{ .Labels.severity }}`{{ else }}N/A{{ end }}
