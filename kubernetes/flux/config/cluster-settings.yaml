@@ -1,0 +1,8 @@
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: cluster-settings
+data:
+  SETTING_CLUSTERNAME: sample-cluster
+  SETTING_TZ: Europe/Vienna
