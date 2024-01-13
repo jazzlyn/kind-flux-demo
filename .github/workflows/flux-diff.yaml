@@ -13,7 +13,7 @@ permissions:
 
 jobs:
   flux-diff:
-    runs-on: arc-runner-set-kind-flux-demo
+    runs-on: ubuntu-latest
     permissions:
       pull-requests: write
     strategy:
