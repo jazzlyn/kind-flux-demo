@@ -32,7 +32,7 @@ jobs:
         uses: fluxcd/flux2/action@5c5c15ea212b8f029a110f9975851d25c8272695 # v2.2.2
 
       - name: Diff Resources
-        uses: tyriis/flux-local/action/diff@a496ea906240e0fb64b60bf675226dc3b3be6d22 # 4.2.2
+        uses: allenporter/flux-local/action/diff@d290eeb73abc46bd130aa32f4affd78d40806433 # 4.3.0
         id: diff
         with:
           token: "${{ steps.generate-token.outputs.token }}"
