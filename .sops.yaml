@@ -1,11 +1,6 @@
 ---
 creation_rules:
-- path_regex: cluster/.*\.sops\.ya?ml
-  encrypted_regex: "^(data|stringData)$"
-  age: >- # add multiple keys here
-    age15jwms27salkzn60rrqapwqmw8rpwukc9fkuj4hr28ta9ezxelssq0nfz6l
-
-- path_regex: infra/terraform/.*\.sops\.ya?ml
+- path_regex: .*\.sops\.ya?ml
   unencrypted_regex: "^(kind)$"
   age: >- # add multiple keys here
     age15jwms27salkzn60rrqapwqmw8rpwukc9fkuj4hr28ta9ezxelssq0nfz6l
