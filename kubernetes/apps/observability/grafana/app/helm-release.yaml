@@ -1,0 +1,72 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: grafana
+spec:
+  chart:
+    spec:
+      chart: grafana
+      version: 7.0.9
+      sourceRef:
+        kind: HelmRepository
+        name: grafana-charts
+        namespace: flux-system
+  interval: 15m
+  values:
+    # https://artifacthub.io/packages/helm/grafana/grafana?modal=values
+    env:
+      GF_EXPLORE_ENABLED: "true"
+      GF_PANELS_DISABLE_SANITIZE_HTML: "true"
+      GF_DATE_FORMATS_USE_BROWSER_LOCALE: "true"
+    admin:
+      existingSecret: grafana-admin
+      userKey: USERNAME
+      passwordKey: PASSWORD
+    datasources:
+      datasources.yaml:
+        apiVersion: 1
+        # list of datasources that should be deleted from the database
+        deleteDatasources:
+          - name: Loki
+            orgId: 1
+          - name: Prometheus
+            orgId: 1
+          - name: Tempo
+            orgId: 1
+        datasources:
+          - name: Prometheus
+            type: prometheus
+            access: proxy
+            url: http://kube-prometheus-stack-prometheus:9090/
+            isDefault: true
+          - name: Loki
+            type: loki
+            access: proxy
+            url: http://loki-gateway:80/
+          - name: Tempo
+            type: tempo
+            access: proxy
+            url: http://tempo:3100/
+    sidecar:
+      dashboards:
+        enabled: true
+        searchNamespace: ALL
+      datasources:
+        enabled: true
+        searchNamespace: ALL
+    plugins:
+      # - natel-discrete-panel
+      # - pr0ps-trackmap-panel
+      - grafana-piechart-panel
+      # - vonage-status-panel
+      - grafana-worldmap-panel
+      - grafana-clock-panel
+    serviceMonitor:
+      enabled: true
+    persistence:
+      enabled: false
+    resources:
+      requests:
+        cpu: 100m
+        memory: 128Mi
