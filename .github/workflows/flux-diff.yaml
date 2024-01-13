@@ -27,7 +27,8 @@ jobs:
 
       - name: Overwrite Git Config
         run: |
-          git config --global url."https://${{ steps.generate-token.outputs.token }}@github.com/".insteadOf "https://github.com/"
+          git config --global url."https://x-access-token:${{ steps.generate-token.outputs.token }}@github.com/".insteadOf "https://github.com/"
+          cat ~/.gitconfig
 
       - name: Setup Flux CLI
         uses: fluxcd/flux2/action@5c5c15ea212b8f029a110f9975851d25c8272695 # v2.2.2
