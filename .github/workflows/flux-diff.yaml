@@ -1,3 +1,57 @@
+# ---
+# name: flux-diff
+
+# on:
+#   pull_request:
+#     branches:
+#       - main
+#     paths:
+#       - kubernetes/**.yaml
+
+# permissions:
+#   contents: read
+
+# jobs:
+#   flux-diff:
+#     runs-on: ubuntu-latest
+#     permissions:
+#       pull-requests: write
+#     strategy:
+#       matrix:
+#         path: ["kubernetes"]
+#         resource: ["helmrelease", "kustomization"]
+#     steps:
+#       - name: Generate Token
+#         uses: tibdex/github-app-token@3beb63f4bd073e61482598c45c71c1019b59b73a # v2.1.0
+#         id: generate-token
+#         with:
+#           app_id: "${{ secrets.JAZZLYN_BOT_GITHUB_APP_ID }}"
+#           private_key: "${{ secrets.JAZZLYN_BOT_GITHUB_PEM }}"
+
+#       - name: Setup Flux CLI
+#         uses: fluxcd/flux2/action@5c5c15ea212b8f029a110f9975851d25c8272695 # v2.2.2
+
+#       - name: Diff Resources
+#         uses: allenporter/flux-local/action/diff@d290eeb73abc46bd130aa32f4affd78d40806433 # 4.3.0
+#         id: diff
+#         with:
+#           token: "${{ steps.generate-token.outputs.token }}"
+#           sources: kind-flux-demo
+#           path: "${{ matrix.path }}"
+#           resource: "${{ matrix.resource }}"
+
+#       - if: ${{ steps.diff.outputs.diff != '' }}
+#         name: Add comment
+#         uses: mshick/add-pr-comment@7c0890544fb33b0bdd2e59467fbacb62e028a096 # v2.8.1
+#         with:
+#           repo-token: "${{ steps.generate-token.outputs.token }}"
+#           message-id: "${{ github.event.pull_request.number }}/${{ matrix.path }}/${{ matrix.resource }}"
+#           message-failure: Diff was not successful
+#           message: |
+#             ```diff
+#             ${{ steps.diff.outputs.diff }}
+#             ```
+
 ---
 name: flux-diff
 
@@ -8,46 +62,15 @@ on:
     paths:
       - kubernetes/**.yaml
 
-permissions:
-  contents: read
-
 jobs:
   flux-diff:
-    runs-on: ubuntu-latest
     permissions:
       pull-requests: write
-    strategy:
-      matrix:
-        path: ["kubernetes"]
-        resource: ["helmrelease", "kustomization"]
-    steps:
-      - name: Generate Token
-        uses: tibdex/github-app-token@3beb63f4bd073e61482598c45c71c1019b59b73a # v2.1.0
-        id: generate-token
-        with:
-          app_id: "${{ secrets.JAZZLYN_BOT_GITHUB_APP_ID }}"
-          private_key: "${{ secrets.JAZZLYN_BOT_GITHUB_PEM }}"
-
-      - name: Setup Flux CLI
-        uses: fluxcd/flux2/action@5c5c15ea212b8f029a110f9975851d25c8272695 # v2.2.2
-
-      - name: Diff Resources
-        uses: allenporter/flux-local/action/diff@d290eeb73abc46bd130aa32f4affd78d40806433 # 4.3.0
-        id: diff
-        with:
-          token: "${{ steps.generate-token.outputs.token }}"
-          sources: kind-flux-demo
-          path: "${{ matrix.path }}"
-          resource: "${{ matrix.resource }}"
-
-      - if: ${{ steps.diff.outputs.diff != '' }}
-        name: Add comment
-        uses: mshick/add-pr-comment@7c0890544fb33b0bdd2e59467fbacb62e028a096 # v2.8.1
-        with:
-          repo-token: "${{ steps.generate-token.outputs.token }}"
-          message-id: "${{ github.event.pull_request.number }}/${{ matrix.path }}/${{ matrix.resource }}"
-          message-failure: Diff was not successful
-          message: |
-            ```diff
-            ${{ steps.diff.outputs.diff }}
-            ```
+    uses: strg-at/github-workflows/.github/workflows/flux-diff.yaml@feature/AGENTS-1425-update-flux-diff
+    with:
+      runner: '["ubuntu-latest"]'
+      path: '["kubernetes"]'
+      source: kind-flux-demo
+    secrets:
+      github-app-id: "${{ secrets.JAZZLYN_BOT_GITHUB_APP_ID }}"
+      github-app-key: "${{ secrets.JAZZLYN_BOT_GITHUB_PEM }}"
