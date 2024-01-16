@@ -1,0 +1,13 @@
+---
+version: "3"
+
+tasks:
+  bootstrap:
+    desc: bootstrap of flux-system
+    internal: true
+    cmds:
+      - kubectl apply -k kubernetes/flux/flux-manifests
+      - sops --decrypt kubernetes/flux/config/age-key.sops.yaml | kubectl apply -f -
+      - sops --decrypt kubernetes/flux/config/github-deploy-key.sops.yaml | kubectl apply -f -
+      - kubectl apply --server-side -f kubernetes/flux/repositories/git/kind-flux-demo.yaml
+      - kubectl apply --server-side -f kubernetes/flux/flux-sync.yaml

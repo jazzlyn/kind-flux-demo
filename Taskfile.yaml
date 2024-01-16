@@ -1,0 +1,31 @@
+---
+version: "3"
+
+vars:
+  PROJECT_DIR:
+    sh: "git rev-parse --show-toplevel"
+  TERRAFORM_DIR: "{{.PROJECT_DIR}}/infra"
+
+includes:
+  check: .taskfiles/check.yaml
+  cluster: .taskfiles/cluster.yaml
+  flux: .taskfiles/flux.yaml
+
+tasks:
+  setup-cluster:
+    desc: (1) setup cluster - spins up a local kind cluster
+    dir: "{{.PROJECT_DIR}}"
+    deps:
+      - task: check:dependencies-cluster
+      - task: cluster:destroy
+    cmds:
+      - task: check:ports-cluster
+      - task: cluster:create
+
+  setup-flux:
+    desc: (2) bootstrap flux - installs flux on existing kind cluster
+    dir: "{{.PROJECT_DIR}}"
+    deps:
+      - task: check:dependencies-cluster
+    cmds:
+      - task: flux:bootstrap

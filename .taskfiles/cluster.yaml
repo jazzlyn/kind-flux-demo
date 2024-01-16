@@ -1,0 +1,61 @@
+---
+version: "3"
+
+tasks:
+  delete-cluster:
+    desc: delete kind cluster and remove associated containers
+    internal: true
+    silent: true
+    cmds:
+      - |
+        if kind get clusters | grep kind-flux-demo >> /dev/null; then
+          kind delete cluster --name kind-flux-demo
+        fi
+      - docker rm -f kind-registry &> /dev/null
+
+  delete-terraform:
+    desc: delete terraform state
+    internal: true
+    silent: true
+    dir: "{{.TERRAFORM_DIR}}"
+    cmds:
+      - rm -f terraform.tfstate* .terraform.lock.hcl
+      - rm -rf .terraform
+
+  create:
+    desc: create kind cluster with terraform
+    internal: true
+    dir: "{{.TERRAFORM_DIR}}"
+    cmds:
+      - terraform init
+      - terraform apply -auto-approve
+      - docker update --restart=unless-stopped
+        kind-registry
+        kind-flux-demo-control-plane
+        kind-flux-demo-worker
+
+  start:
+    desc: start the local kind cluster
+    silent: true
+    ignore_error: true
+    cmds:
+      - docker start kind-registry
+      - docker start kind-flux-demo-control-plane
+      - docker start kind-flux-demo-worker
+      - kubectl config use-context kind-kind-flux-demo
+
+  stop:
+    desc: stop the local kind cluster
+    silent: true
+    ignore_error: true
+    cmds:
+      - docker stop kind-flux-demo-worker
+      - docker stop kind-flux-demo-control-plane
+      - docker stop kind-registry
+
+  destroy:
+    desc: destroy the local kind cluster, will delete all resources!
+    silent: true
+    cmds:
+      - task: delete-cluster
+      - task: delete-terraform
