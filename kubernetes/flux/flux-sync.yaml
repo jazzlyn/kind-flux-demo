@@ -12,3 +12,7 @@ spec:
   sourceRef:
     kind: GitRepository
     name: kind-flux-demo
+  decryption:
+    provider: sops
+    secretRef:
+      name: age-key

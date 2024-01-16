@@ -1,4 +1,4 @@
-#ENC[AES256_GCM,data:D+zzcLD0oJbtpuErqF9XBE4=,iv:2zuZdBAn7MyCpNx3QA5h1QHHSUxvHMgZjNe0KT/CpCQ=,tag:k28qg3SRiCoNjogrcWWZ+g==,type:comment]
+# yamllint disable
 apiVersion: ENC[AES256_GCM,data:N/g=,iv:AIuUy9wOWU6xEgD1SHKrmLCcwYZJEvYJsO12gGVw6yY=,tag:FUj+qUrs4f1QnVHPjm+D0Q==,type:str]
 kind: Secret
 metadata:
