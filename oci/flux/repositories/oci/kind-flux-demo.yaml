@@ -1,0 +1,13 @@
+---
+apiVersion: source.toolkit.fluxcd.io/v1beta2
+kind: OCIRepository
+metadata:
+  name: kind-flux-demo
+  namespace: flux-system
+spec:
+  insecure: true
+  interval: 1m
+  url: oci://kind-registry:5000/kind-flux-demo
+  provider: generic
+  ref:
+    tag: local
