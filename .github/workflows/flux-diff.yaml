@@ -33,9 +33,9 @@ jobs:
       - name: install kube-tools
         uses: alexellis/arkade-get@962792902efae2ed77247127b044579f2e13fa8e
         with:
-          flux: latest
-          helm: latest
-          kustomize: latest
+          flux: v2.2.2
+          helm: v3.13.3
+          kustomize: kustomize/v5.3.0
 
       - name: Diff Resources
         uses: allenporter/flux-local/action/diff@d290eeb73abc46bd130aa32f4affd78d40806433 # 4.3.0
