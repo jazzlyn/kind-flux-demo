@@ -1,0 +1,20 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: &app grafana
+spec:
+  # https://artifacthub.io/packages/helm/grafana/grafana?modal=values
+  values:
+    env:
+      GF_AUTH_ANONYMOUS_ENABLED: "true"
+      GF_AUTH_ANONYMOUS_ORG_ROLE: Admin
+      GF_AUTH_DISABLE_LOGIN_FORM: "true"
+
+    envFromSecrets: []
+
+    admin:
+      $patch: delete
+
+    persistence:
+      enabled: false
