@@ -25,13 +25,13 @@ jobs:
           app_id: "${{ secrets.JAZZLYN_BOT_GITHUB_APP_ID }}"
           private_key: "${{ secrets.JAZZLYN_BOT_GITHUB_PEM }}"
 
-      # https://github.com/marketplace/actions/install-arkade
-      - name: install arkade
-        uses: alexellis/setup-arkade@v3
+      # # https://github.com/marketplace/actions/install-arkade
+      # - name: install arkade
+      #   uses: alexellis/setup-arkade@v3
 
       # https://github.com/alexellis/arkade-get
       - name: install kube-tools
-        uses: alexellis/arkade-get@master
+        uses: alexellis/arkade-get@962792902efae2ed77247127b044579f2e13fa8e
         with:
           flux: latest
           helm: latest
