@@ -6,11 +6,9 @@ metadata:
   namespace: flux-system
 spec:
   interval: 15m
-  path: ./apps/observability/grafana/app
+  path: ./oci/apps/observability/grafana/app
   prune: true
   sourceRef:
     kind: OCIRepository
     name: kind-flux-demo
   wait: true
-  dependsOn:
-    - name: apps-kube-prometheus-stack
