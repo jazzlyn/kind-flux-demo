@@ -15,7 +15,7 @@ jobs:
       pull-requests: write
     strategy:
       matrix:
-        paths: ["kubernetes"]
+        paths: ["kubernetes", "oci"]
         resources: ["helmrelease", "kustomization"]
     steps:
       - name: generate token
