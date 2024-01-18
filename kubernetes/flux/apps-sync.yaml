@@ -12,7 +12,7 @@ spec:
   prune: true
   sourceRef:
     kind: GitRepository
-    name: kind-flux-demo
+    name: home-ops
   patches:
     # patch labels to all helmreleases for configuration of:
     # - standardized helm values
