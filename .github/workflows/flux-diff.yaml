@@ -15,7 +15,7 @@ jobs:
     uses: strg-at/github-workflows/.github/workflows/flux-diff.yaml@feature/AGENTS-1425-update-flux-diff
     with:
       runner: '["ubuntu-latest"]'
-      paths: '["kubernetes"]'
+      paths: '["oci"]'
       resources: '["helmrelease", "kustomization"]'
     secrets:
       github-app-id: ${{ secrets.JAZZLYN_BOT_GITHUB_APP_ID }}
