@@ -10,7 +10,7 @@ spec:
   interval: 1m
   retryInterval: 5s
   timeout: 5m
-  path: ./oci/apps
+  path: ./apps
   prune: true
   sourceRef:
     kind: OCIRepository
