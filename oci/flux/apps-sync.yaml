@@ -7,12 +7,14 @@ metadata:
 spec:
   dependsOn:
     - name: flux-sync
-  interval: 15m
-  path: ./kubernetes/apps
+  interval: 1m
+  retryInterval: 5s
+  timeout: 5m
+  path: ./oci/apps
   prune: true
   sourceRef:
-    kind: GitRepository
-    name: home-ops
+    kind: OCIRepository
+    name: kind-flux-demo
   patches:
     # patch labels to all helmreleases for configuration of:
     # - standardized helm values

@@ -39,9 +39,9 @@ jobs:
         id: diff
         with:
           token: "${{ steps.generate-token.outputs.token }}"
-          #sources: kind-flux-demo
           path: "${{ matrix.paths }}"
           resource: "${{ matrix.resources }}"
+          sources: kind-flux-demo, home-ops
 
       - name: add comment
         if: ${{ steps.diff.outputs.diff != '' }}
