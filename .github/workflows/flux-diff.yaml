@@ -13,7 +13,7 @@ jobs:
   flux-diff:
     permissions:
       pull-requests: write
-    uses: strg-at/github-workflows/.github/workflows/flux-diff.yaml@feature/AGENTS-1425-update-flux-diff
+    uses: strg-at/github-workflows/.github/workflows/flux-diff.yaml@v1.3.1
     with:
       runner: '["ubuntu-latest"]'
       paths: '["kubernetes"]'
