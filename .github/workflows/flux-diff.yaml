@@ -18,7 +18,7 @@ jobs:
       runner: '["ubuntu-latest"]'
       paths: '["kubernetes"]'
       resources: '["helmrelease", "kustomization"]'
-      sources: kind-flux-demo
+      #sources: kind-flux-demo
     secrets:
       github-app-id: ${{ secrets.JAZZLYN_BOT_GITHUB_APP_ID }}
       github-app-key: ${{ secrets.JAZZLYN_BOT_GITHUB_PEM }}
