@@ -58,8 +58,7 @@ jobs:
 
       - name: start oci registry
         run: |
-          docker run -d --rm --name kind-registry -p 5000:5050 registry:2.8.1
-          sleep 10
+          docker run -d --rm --name kind-registry -p 5050:5000 registry:2.8.1
 
       - name: push-artifact
         run: |
