@@ -4,14 +4,6 @@ kind: HelmRelease
 metadata:
   name: &app grafana
 spec:
-  chart:
-    spec:
-      chart: grafana
-      version: 7.0.22
-      sourceRef:
-        kind: HelmRepository
-        name: grafana-charts
-        namespace: flux-system
   interval: 15m
   values:
   # https://artifacthub.io/packages/helm/grafana/grafana?modal=values
@@ -19,11 +11,3 @@ spec:
       GF_AUTH_ANONYMOUS_ENABLED: "true"
       GF_AUTH_ANONYMOUS_ORG_ROLE: Admin
       GF_AUTH_DISABLE_LOGIN_FORM: "true"
-
-    envFromSecrets: []
-
-    admin:
-      $patch: delete
-
-    persistence:
-      enabled: false
