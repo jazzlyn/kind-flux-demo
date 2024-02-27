@@ -25,7 +25,7 @@ on:
 
 jobs:
   flux-diff:
-    runs-on: arc-runner-set-kind-flux-demo
+    runs-on: ubuntu-latest
     permissions:
       pull-requests: write
     strategy:
@@ -80,7 +80,7 @@ jobs:
           token: "${{ steps.generate-token.outputs.token }}"
           path: "${{ matrix.paths }}"
           resource: "${{ matrix.resources }}"
-          sources: kind-flux-demo
+          sources: kind-flux-demo=./oci
 
       # https://github.com/marketplace/actions/add-pr-comment
       - name: add comment
