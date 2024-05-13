@@ -17,6 +17,7 @@ jobs:
     uses: strg-at/github-workflows/.github/workflows/flux-diff.yaml@feature/INPRO-2219-flux-diff-improvement
     with:
       runner: '["ubuntu-latest"]'
+      sources: kind-flux-demo
       # paths: '["oci"]'
       # sources: kind-flux-demo=./oci
       # flux-cluster-repo-owner: tyriis
