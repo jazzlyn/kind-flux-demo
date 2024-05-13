@@ -16,7 +16,7 @@ spec:
   values:
     # https://artifacthub.io/packages/helm/grafana/grafana?modal=values
     env:
-      GF_EXPLORE_ENABLED: "true"
+      GF_EXPLORE_ENABLED: "false"
       GF_PANELS_DISABLE_SANITIZE_HTML: "true"
       GF_DATE_FORMATS_USE_BROWSER_LOCALE: "true"
     admin:
