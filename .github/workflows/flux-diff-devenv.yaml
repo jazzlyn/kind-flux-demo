@@ -107,7 +107,7 @@ jobs:
             --strip-attrs "helm.sh/chart,checksum/config,app.kubernetes.io/version,chart"
             --limit-bytes 10000
             --all-namespaces
-            --sources kind-flux-demo=./pull/oci
+            --sources kind-flux-demo=./oci
             --output-file diff.patch
 
       - name: generate diff
