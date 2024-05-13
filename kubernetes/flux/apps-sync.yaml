@@ -12,62 +12,8 @@ spec:
   prune: true
   sourceRef:
     kind: GitRepository
-    name: home-ops
-  patches:
-    # patch labels to all helmreleases for configuration of:
-    # - standardized helm values
-    # - crds handling
-    - patch: |-
-        apiVersion: kustomize.toolkit.fluxcd.io/v1
-        kind: Kustomization
-        metadata:
-          name: not-used
-        spec:
-          patches:
-            - patch: |-
-                apiVersion: helm.toolkit.fluxcd.io/v2beta1
-                kind: HelmRelease
-                metadata:
-                  name: not-used
-                spec:
-                  interval: 15m
-                  maxHistory: 5
-                  timeout: 5m
-                  chart:
-                    spec:
-                      interval: 15m
-                  install:
-                    createNamespace: true
-                  test:
-                    enable: true
-                  upgrade:
-                    cleanupOnFail: true
-                  uninstall:
-                    keepHistory: false
-                  values:
-                    podAnnotations:
-                      reloader.stakater.com/auto: "true"
-              target:
-                group: helm.toolkit.fluxcd.io
-                version: v2beta1
-                kind: HelmRelease
-                labelSelector: helmrelease.flux.defaults.arpa/enabled in (true)
-            - patch: |-
-                apiVersion: helm.toolkit.fluxcd.io/v2beta1
-                kind: HelmRelease
-                metadata:
-                  name: not-used
-                spec:
-                  install:
-                    crds: CreateReplace
-                  upgrade:
-                    crds: CreateReplace
-              target:
-                group: helm.toolkit.fluxcd.io
-                version: v2beta1
-                kind: HelmRelease
-                labelSelector: helmrelease.flux.crds.arpa/enabled in (true)
-      target:
-        group: kustomize.toolkit.fluxcd.io
-        version: v1
-        kind: Kustomization
+    name: kind-flux-demo
+  decryption:
+    provider: sops
+    secretRef:
+      name: age-key
