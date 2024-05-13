@@ -140,7 +140,7 @@ jobs:
             ```
 
   flux-diff-success:
-    runs-on: ${{fromJSON(inputs.runner)}}
+    runs-on: ubuntu-latest
     needs:
       - flux-diff
     if: ${{ always() }}
