@@ -1,0 +1,22 @@
+---
+name: flux-diff-kubernetes
+
+on:
+  pull_request:
+    branches:
+      - main
+    paths:
+      - kubernetes/**.yaml
+
+jobs:
+  flux-diff-kubernetes:
+    permissions:
+      contents: read
+      pull-requests: write
+    uses: strg-at/github-workflows/.github/workflows/flux-diff.yaml@feature/INPRO-2219-flux-diff-improvement
+    with:
+      runner: '["ubuntu-latest"]'
+      sources: kind-flux-demo
+    secrets:
+      github-app-id: ${{ secrets.JAZZLYN_BOT_GITHUB_APP_ID }}
+      github-app-key: ${{ secrets.JAZZLYN_BOT_GITHUB_PEM }}
