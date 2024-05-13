@@ -1,0 +1,27 @@
+---
+name: flux-diff-devenv
+
+on:
+  pull_request:
+    branches:
+      - main
+    paths:
+      - oci/**.yaml
+
+jobs:
+  flux-diff-devenv:
+    permissions:
+      contents: read
+      pull-requests: write
+    uses: strg-at/github-workflows/.github/workflows/flux-diff.yaml@feature/INPRO-2219-flux-diff-improvement
+    with:
+      runner: '["ubuntu-latest"]'
+      sources: kind-flux-demo=./oci
+      paths: '["oci"]'
+      flux-cluster-repo-owner: tyriis
+      flux-cluster-repo: home-ops
+      devenv-repo: kind-flux-demo
+    secrets:
+      github-app-id: ${{ secrets.JAZZLYN_BOT_GITHUB_APP_ID }}
+      github-app-key: ${{ secrets.JAZZLYN_BOT_GITHUB_PEM }}
+
