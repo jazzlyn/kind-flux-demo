@@ -15,3 +15,7 @@ spec:
   sourceRef:
     kind: OCIRepository
     name: kind-flux-demo
+  decryption:
+    provider: sops
+    secretRef:
+      name: age-key
