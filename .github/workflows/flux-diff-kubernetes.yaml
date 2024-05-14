@@ -16,7 +16,6 @@ jobs:
     uses: strg-at/github-workflows/.github/workflows/flux-diff.yaml@feature/INPRO-2219-flux-diff-improvement
     with:
       runner: '["ubuntu-latest"]'
-      sources: kind-flux-demo
     secrets:
       github-app-id: ${{ secrets.JAZZLYN_BOT_GITHUB_APP_ID }}
       github-app-key: ${{ secrets.JAZZLYN_BOT_GITHUB_PEM }}
