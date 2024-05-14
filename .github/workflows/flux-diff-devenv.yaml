@@ -13,7 +13,7 @@ jobs:
     permissions:
       contents: read
       pull-requests: write
-    uses: strg-at/github-workflows/.github/workflows/flux-diff.yaml@feature/INPRO-2219-flux-diff-improvement
+    uses: strg-at/github-workflows/.github/workflows/flux-diff.yaml@v1.6.0
     with:
       runner: '["ubuntu-latest"]'
       sources: kind-flux-demo=./oci
