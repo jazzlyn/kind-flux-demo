@@ -90,19 +90,34 @@ jobs:
       #       --source="local" \
       #       --revision="latest"
 
-      # https://github.com/allenporter/flux-local
+      # # https://github.com/allenporter/flux-local
+      # - name: diff resources
+      #   uses: docker://ghcr.io/allenporter/flux-local:v5.1.0@sha256:0e956a1b4b7c7da8e9a9451c85db66f3613dcadd6dcf6b0813d7b459d51514f4
+      #   with:
+      #     args: >-
+      #       diff ${{ matrix.resources }}
+      #       --unified 6
+      #       --path /github/workspace/pull/${{ matrix.paths }}/flux
+      #       --path-orig /github/workspace/default/${{ matrix.paths }}/flux
+      #       --strip-attrs "helm.sh/chart,checksum/config,app.kubernetes.io/version,chart"
+      #       --limit-bytes 10000
+      #       --all-namespaces
+      #       --sources ""
+      #       --output-file diff.patch
+
       - name: diff resources
-        uses: docker://ghcr.io/allenporter/flux-local:v5.1.0@sha256:0e956a1b4b7c7da8e9a9451c85db66f3613dcadd6dcf6b0813d7b459d51514f4
-        with:
-          args: >-
-            diff ${{ matrix.resources }}
-            --unified 6
-            --path /github/workspace/pull/${{ matrix.paths }}/flux
-            --path-orig /github/workspace/default/${{ matrix.paths }}/flux
-            --strip-attrs "helm.sh/chart,checksum/config,app.kubernetes.io/version,chart"
-            --limit-bytes 10000
-            --all-namespaces
-            --sources ""
+        run: |
+          docker run \
+            -v "$(pwd):/github/workspace" \
+            ghcr.io/allenporter/flux-local:v5.1.0@sha256:0e956a1b4b7c7da8e9a9451c85db66f3613dcadd6dcf6b0813d7b459d51514f4 \
+            diff ${{ matrix.resources }} \
+            --unified 6 \
+            --path /github/workspace/pull/${{ matrix.paths }}/flux \
+            --path-orig /github/workspace/default/${{ matrix.paths }}/flux \
+            --strip-attrs "helm.sh/chart,checksum/config,app.kubernetes.io/version,chart" \
+            --limit-bytes 10000 \
+            --all-namespaces \
+            --sources "" \
             --output-file diff.patch
 
       - name: generate diff
@@ -133,13 +148,3 @@ jobs:
             ```diff
             ${{ steps.diff.outputs.diff }}
             ```
-
-  flux-diff-success:
-    runs-on: ubuntu-latest
-    needs:
-      - flux-diff
-    if: ${{ always() }}
-    steps:
-      - name: check matrix status
-        if: ${{ contains(needs.*.result, 'failure') || contains(needs.*.result, 'cancelled') }}
-        run: exit 1
