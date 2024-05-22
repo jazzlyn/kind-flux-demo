@@ -4,5 +4,5 @@ kind: Kustomization
 namespace: observability
 resources:
   - ../../../../home-ops/kubernetes/talos-flux/apps/observability/grafana/app
-patchesStrategicMerge:
-  - helm-values.yaml
+patches:
+  - path: helm-values.yaml
