@@ -11,5 +11,15 @@
       matchDatasources: ["kubernetes-api"],
       enabled: true,
     },
+    {
+      matchManagers: ["flux"],
+      matchDepPatterns: ["^kind-registry:5000/.*$"],
+      enabled: false,
+    },
+    {
+      matchManagers: ["helm-values"],
+      matchDepPatterns: ["^localhost:5050/.*$"],
+      enabled: false,
+    },
   ],
 }
