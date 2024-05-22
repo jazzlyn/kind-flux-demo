@@ -19,7 +19,6 @@ jobs:
     secrets:
       github-app-id: ${{ secrets.JAZZLYN_BOT_GITHUB_APP_ID }}
       github-app-key: ${{ secrets.JAZZLYN_BOT_GITHUB_PEM }}
-
 # jobs:
 #   flux-diff:
 #     runs-on: ubuntu-latest
