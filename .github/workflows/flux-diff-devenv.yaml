@@ -61,20 +61,11 @@ jobs:
           ref: ${{ github.event.repository.default_branch }}
           path: default
 
-      # https://github.com/marketplace/actions/create-github-app-token
-      - name: generate token cluster
-        id: generate-token-cluster
-        uses: actions/create-github-app-token@7bfa3a4717ef143a604ee0a99d859b8886a96d00 # v1.9.3
-        with:
-          app-id: ${{ secrets.JAZZLYN_BOT_GITHUB_APP_ID }}
-          private-key: ${{ secrets.JAZZLYN_BOT_GITHUB_PEM }}
-          owner: ${{ github.repository_owner }}
-
       # https://github.com/marketplace/actions/checkout
       - name: checkout flux-cluster
         uses: actions/checkout@0ad4b8fadaa221de15dcec353f45205ec38ea70b # v4.1.4
         with:
-          token: ${{ steps.generate-token-cluster.outputs.token }}
+          token: ${{ steps.generate-token.outputs.token }}
           repository: jazzlyn/kind-flux-test
           path: pull/oci/kind-flux-test
 
@@ -82,7 +73,7 @@ jobs:
       - name: checkout flux-cluster default branch
         uses: actions/checkout@0ad4b8fadaa221de15dcec353f45205ec38ea70b # v4.1.4
         with:
-          token: ${{ steps.generate-token-cluster.outputs.token }}
+          token: ${{ steps.generate-token.outputs.token }}
           repository: jazzlyn/kind-flux-test
           path: default/oci/kind-flux-test
 
