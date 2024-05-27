@@ -18,8 +18,8 @@ jobs:
       runner: '["ubuntu-latest"]'
       sources: kind-flux-demo=./oci
       paths: '["oci"]'
-      flux-cluster-repo-owner: tyriis
-      flux-cluster-repo: home-ops
+      flux-cluster-repo-owner: jazzlyn
+      flux-cluster-repo: kind-flux-test
       devenv-repo: kind-flux-demo
       devenv-oci-path: oci
     secrets:
