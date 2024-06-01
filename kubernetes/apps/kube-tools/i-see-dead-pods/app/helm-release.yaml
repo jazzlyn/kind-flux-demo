@@ -1,5 +1,6 @@
 ---
-apiVersion: helm.toolkit.fluxcd.io/v2beta1
+# yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s/helm-charts/main/charts/other/app-template/schemas/helmrelease-helm-v2.schema.json
+apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
   name: &app i-see-dead-pods
@@ -10,39 +11,53 @@ spec:
   chart:
     spec:
       chart: app-template
-      version: 1.5.1
+      version: 3.2.1
       sourceRef:
         kind: HelmRepository
         name: bjw-s-charts
         namespace: flux-system
+  # https://github.com/bjw-s/helm-charts/tree/main/charts/other/app-template
+  # https://github.com/tyriis/i-see-dead-pods
   values:
-    # https://github.com/bjw-s/helm-charts/blob/main/charts/library/common/values.yaml
-    # https://github.com/tyriis/i-see-dead-pods
-    controller:
-      type: cronjob
-      cronjob:
-        schedule: "*/5 * * * *"
-    image:
-      repository: ghcr.io/k8s-at-home/kubectl
-      tag: v1.25.4@sha256:7c79e72d9b194e856e4cee0dabd0a30fc7b42863975ddb70bdffe5ac69ce2c17
-    command:
-      - /bin/sh
-      - -ec
-      - |
-        kubectl get pods \
-          --all-namespaces \
-          -o go-template \
-          --template='{{range .items}}{{printf "%s %s %s\n" .metadata.namespace .metadata.name .status.message}}{{end}}' \
-          | grep "Pod was terminated in response to imminent node shutdown." \
-          | awk '{print $1, $2}' \
-          | xargs -r -n2 kubectl delete pod -n || true
+    controllers:
+      i-see-dead-pods:
+        type: cronjob
+        cronjob:
+          concurrencyPolicy: Forbid
+          schedule: "*/5 * * * *"
+        pod:
+          securityContext:
+            runAsUser: 65534
+            runAsGroup: 65534
+            runAsNonRoot: true
+
+        containers:
+          cron:
+            image:
+              repository: bitnami/kubectl
+              tag: 1.30.1@sha256:0aef4af32ece80e21c32ab31438252f32d84ebe35035faafedc4fde184075b4f
+            command:
+              - /bin/sh
+              - -ec
+              - |
+                kubectl get pods \
+                  --all-namespaces \
+                  -o go-template \
+                  --template='{{range .items}}{{printf "%s %s %s\n" .metadata.namespace .metadata.name .status.message}}{{end}}' \
+                  | grep "Pod was terminated in response to imminent node shutdown." \
+                  | awk '{print $1, $2}' \
+                  | xargs -r -n2 kubectl delete pod -n || true
+            securityContext:
+              allowPrivilegeEscalation: false
+              readOnlyRootFilesystem: true
+              capabilities: { drop: ["ALL"] }
+              seccompProfile:
+                type: RuntimeDefault
+            resources:
+              requests:
+                cpu: 10m
+                memory: 10Mi
+
     serviceAccount:
       create: true
       name: *app
-    service:
-      main:
-        enabled: false
-    resources:
-      requests:
-        cpu: 10m
-        memory: 10Mi
