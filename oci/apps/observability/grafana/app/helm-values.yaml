@@ -6,7 +6,7 @@ metadata:
 spec:
   interval: 15m
   values:
-  # https://artifacthub.io/packages/helm/grafana/grafana?modal=values
+    # https://artifacthub.io/packages/helm/grafana/grafana?modal=values
     env:
       GF_AUTH_ANONYMOUS_ENABLED: "true"
       GF_AUTH_ANONYMOUS_ORG_ROLE: Admin

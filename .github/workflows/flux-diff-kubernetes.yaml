@@ -8,128 +8,127 @@ on:
     paths:
       - kubernetes/**.yaml
 
-# jobs:
-#   flux-diff-kubernetes:
-#     permissions:
-#       contents: read
-#       pull-requests: write
-#     uses: strg-at/github-workflows/.github/workflows/flux-diff.yaml@v1.6.0
-#     with:
-#       runner: '["arc-runner-set-kind-flux-demo"]'
-#     secrets:
-#       github-app-id: ${{ secrets.JAZZLYN_BOT_GITHUB_APP_ID }}
-#       github-app-key: ${{ secrets.JAZZLYN_BOT_GITHUB_PEM }}
-
 jobs:
-  flux-diff:
-    runs-on: ubuntu-latest
+  flux-diff-kubernetes:
     permissions:
       contents: read
       pull-requests: write
-    strategy:
-      matrix:
-        paths: ["kubernetes"]
-        resources: ["helmrelease", "kustomization"]
-      fail-fast: false
-    steps:
-      # https://github.com/marketplace/actions/create-github-app-token
-      - name: generate token
-        id: generate-token
-        uses: actions/create-github-app-token@a0de6af83968303c8c955486bf9739a57d23c7f1 # v1.10.0
-        with:
-          app-id: ${{ secrets.JAZZLYN_BOT_GITHUB_APP_ID }}
-          private-key: ${{ secrets.JAZZLYN_BOT_GITHUB_PEM }}
+    uses: strg-at/github-workflows/.github/workflows/flux-diff.yaml@c3b65900e045c388e6895d74522317427453fde0 # v1.6.1
+    with:
+      runner: '["ubuntu-latest"]'
+    secrets:
+      github-app-id: ${{ secrets.JAZZLYN_BOT_GITHUB_APP_ID }}
+      github-app-key: ${{ secrets.JAZZLYN_BOT_GITHUB_PEM }}
+# jobs:
+#   flux-diff:
+#     runs-on: ubuntu-latest
+#     permissions:
+#       contents: read
+#       pull-requests: write
+#     strategy:
+#       matrix:
+#         paths: ["kubernetes"]
+#         resources: ["helmrelease", "kustomization"]
+#       fail-fast: false
+#     steps:
+#       # https://github.com/marketplace/actions/create-github-app-token
+#       - name: generate token
+#         id: generate-token
+#         uses: actions/create-github-app-token@a0de6af83968303c8c955486bf9739a57d23c7f1 # v1.10.0
+#         with:
+#           app-id: ${{ secrets.JAZZLYN_BOT_GITHUB_APP_ID }}
+#           private-key: ${{ secrets.JAZZLYN_BOT_GITHUB_PEM }}
 
-      # https://github.com/marketplace/actions/checkout
-      - name: checkout
-        uses: actions/checkout@a5ac7e51b41094c92402da3b24376905380afc29 # v4.1.6
-        with:
-          token: ${{ steps.generate-token.outputs.token }}
-          path: pull
+#       # https://github.com/marketplace/actions/checkout
+#       - name: checkout
+#         uses: actions/checkout@a5ac7e51b41094c92402da3b24376905380afc29 # v4.1.6
+#         with:
+#           token: ${{ steps.generate-token.outputs.token }}
+#           path: pull
 
-      # https://github.com/marketplace/actions/checkout
-      - name: checkout default branch
-        uses: actions/checkout@a5ac7e51b41094c92402da3b24376905380afc29 # v4.1.6
-        with:
-          token: ${{ steps.generate-token.outputs.token }}
-          ref: ${{ github.event.repository.default_branch }}
-          path: default
+#       # https://github.com/marketplace/actions/checkout
+#       - name: checkout default branch
+#         uses: actions/checkout@a5ac7e51b41094c92402da3b24376905380afc29 # v4.1.6
+#         with:
+#           token: ${{ steps.generate-token.outputs.token }}
+#           ref: ${{ github.event.repository.default_branch }}
+#           path: default
 
-      # # https://github.com/marketplace/actions/checkout
-      # - name: checkout flux-cluster
-      #   uses: actions/checkout@0ad4b8fadaa221de15dcec353f45205ec38ea70b # v4.1.4
-      #   with:
-      #     token: ${{ steps.generate-token.outputs.token }}
-      #     repository: tyriis/home-ops
-      #     path: pull/oci/home-ops
+#       # # https://github.com/marketplace/actions/checkout
+#       # - name: checkout flux-cluster
+#       #   uses: actions/checkout@0ad4b8fadaa221de15dcec353f45205ec38ea70b # v4.1.4
+#       #   with:
+#       #     token: ${{ steps.generate-token.outputs.token }}
+#       #     repository: tyriis/home-ops
+#       #     path: pull/oci/home-ops
 
-      # # https://github.com/marketplace/actions/checkout
-      # - name: checkout flux-cluster default branch
-      #   uses: actions/checkout@0ad4b8fadaa221de15dcec353f45205ec38ea70b # v4.1.4
-      #   with:
-      #     token: ${{ steps.generate-token.outputs.token }}
-      #     repository: tyriis/home-ops
-      #     path: default/oci/home-ops
+#       # # https://github.com/marketplace/actions/checkout
+#       # - name: checkout flux-cluster default branch
+#       #   uses: actions/checkout@0ad4b8fadaa221de15dcec353f45205ec38ea70b # v4.1.4
+#       #   with:
+#       #     token: ${{ steps.generate-token.outputs.token }}
+#       #     repository: tyriis/home-ops
+#       #     path: default/oci/home-ops
 
-      # # https://github.com/alexellis/arkade-get
-      # - name: install flux
-      #   uses: alexellis/arkade-get@ea6458824534763a1bd42341ed3c5297f0c5b55a
-      #   with:
-      #     print-summary: false
-      #     flux: latest
+#       # # https://github.com/alexellis/arkade-get
+#       # - name: install flux
+#       #   uses: alexellis/arkade-get@ea6458824534763a1bd42341ed3c5297f0c5b55a
+#       #   with:
+#       #     print-summary: false
+#       #     flux: latest
 
-      # # https://github.com/marketplace/actions/docker-setup-buildx
-      # - name: setup docker
-      #   uses: docker/setup-buildx-action@v3.2.0
+#       # # https://github.com/marketplace/actions/docker-setup-buildx
+#       # - name: setup docker
+#       #   uses: docker/setup-buildx-action@v3.2.0
 
-      # - name: run docker and push artifact
-      #   run: |
-      #     docker run -d --rm --name kind-registry -p 5050:5000 registry:2.8.1
-      #     flux push artifact oci://localhost:5050/kind-flux-demo:local \
-      #       --path="pull/oci" \
-      #       --source="local" \
-      #       --revision="latest"
+#       # - name: run docker and push artifact
+#       #   run: |
+#       #     docker run -d --rm --name kind-registry -p 5050:5000 registry:2.8.1
+#       #     flux push artifact oci://localhost:5050/kind-flux-demo:local \
+#       #       --path="pull/oci" \
+#       #       --source="local" \
+#       #       --revision="latest"
 
-      # https://github.com/allenporter/flux-local
-      - name: diff resources
-        uses: docker://ghcr.io/allenporter/flux-local:v5.3.1@sha256:4718197c94c10ec175b1ff1e4e0e56a9e1894294d2a7ee760739f687332a11d7
-        with:
-          args: >-
-            diff ${{ matrix.resources }}
-            --unified 6
-            --path /github/workspace/pull/${{ matrix.paths }}/flux
-            --path-orig /github/workspace/default/${{ matrix.paths }}/flux
-            --strip-attrs "helm.sh/chart,checksum/config,app.kubernetes.io/version,chart"
-            --limit-bytes 10000
-            --all-namespaces
-            --sources ""
-            --output-file diff.patch
+#       # https://github.com/allenporter/flux-local
+#       - name: diff resources
+#         uses: docker://ghcr.io/allenporter/flux-local:v5.1.0@sha256:0e956a1b4b7c7da8e9a9451c85db66f3613dcadd6dcf6b0813d7b459d51514f4
+#         with:
+#           args: >-
+#             diff ${{ matrix.resources }}
+#             --unified 6
+#             --path /github/workspace/pull/${{ matrix.paths }}/flux
+#             --path-orig /github/workspace/default/${{ matrix.paths }}/flux
+#             --strip-attrs "helm.sh/chart,checksum/config,app.kubernetes.io/version,chart"
+#             --limit-bytes 10000
+#             --all-namespaces
+#             --sources ""
+#             --output-file diff.patch
 
-      - name: generate diff
-        id: diff
-        run: |
-          cat diff.patch;
-          {
-            echo 'diff<<EOF'
-            cat diff.patch
-            echo EOF
-          } >> "$GITHUB_OUTPUT";
-          {
-            echo "### Diff"
-            echo '```diff'
-            cat diff.patch
-            echo '```'
-          } >> "$GITHUB_STEP_SUMMARY"
+#       - name: generate diff
+#         id: diff
+#         run: |
+#           cat diff.patch;
+#           {
+#             echo 'diff<<EOF'
+#             cat diff.patch
+#             echo EOF
+#           } >> "$GITHUB_OUTPUT";
+#           {
+#             echo "### Diff"
+#             echo '```diff'
+#             cat diff.patch
+#             echo '```'
+#           } >> "$GITHUB_STEP_SUMMARY"
 
-      # https://github.com/marketplace/actions/add-pr-comment
-      - name: add comment
-        if: ${{ steps.diff.outputs.diff }}
-        uses: mshick/add-pr-comment@b8f338c590a895d50bcbfa6c5859251edc8952fc # v2.8.2
-        with:
-          repo-token: ${{ steps.generate-token.outputs.token }}
-          message-id: ${{ github.event.pull_request.number }}/${{ matrix.paths }}/${{ matrix.resources }}
-          message-failure: diff was not successful
-          message: |
-            ```diff
-            ${{ steps.diff.outputs.diff }}
-            ```
+#       # https://github.com/marketplace/actions/add-pr-comment
+#       - name: add comment
+#         if: ${{ steps.diff.outputs.diff }}
+#         uses: mshick/add-pr-comment@b8f338c590a895d50bcbfa6c5859251edc8952fc # v2.8.2
+#         with:
+#           repo-token: ${{ steps.generate-token.outputs.token }}
+#           message-id: ${{ github.event.pull_request.number }}/${{ matrix.paths }}/${{ matrix.resources }}
+#           message-failure: diff was not successful
+#           message: |
+#             ```diff
+#             ${{ steps.diff.outputs.diff }}
+#             ```

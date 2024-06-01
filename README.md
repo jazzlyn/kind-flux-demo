@@ -20,8 +20,8 @@ create sops file and encode data in base64
 apiVersion: v1
 kind: Secret
 metadata:
-    name: github-deploy-key
-    namespace: flux-system
+  name: github-deploy-key
+  namespace: flux-system
 data:
   identity: ""
   identity.pub: ""
@@ -47,8 +47,8 @@ create sops file and encode data in base64
 apiVersion: v1
 kind: Secret
 metadata:
-    name: age-key
-    namespace: flux-system
+  name: age-key
+  namespace: flux-system
 data:
   age.agekey: ""
 ```
