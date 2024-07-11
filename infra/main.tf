@@ -3,7 +3,7 @@
 # --------------------------------------------------------------------------------
 
 terraform {
-  required_version = ">= 1.3.0, <= 1.8.4"
+  required_version = ">= 1.3.0, <= 1.9.2"
   required_providers {
     kind = {
       source  = "tehcyx/kind"

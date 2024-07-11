@@ -45,13 +45,13 @@ jobs:
 
       # https://github.com/marketplace/actions/checkout
       - name: checkout repository
-        uses: actions/checkout@a5ac7e51b41094c92402da3b24376905380afc29 # v4.1.6
+        uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332 # v4.1.7
         with:
           token: ${{ steps.generate-token.outputs.token }}
 
       # https://github.com/marketplace/actions/renovate-bot-github-action
       - name: renovate bot
-        uses: renovatebot/github-action@063e0c946b9c1af35ef3450efc44114925d6e8e6 # v40.1.11
+        uses: renovatebot/github-action@042670e39b8d7335e992c3fa526ecbfbd52ef57b # v40.2.2
         env:
           DRY_RUN: ${{ inputs.dry-run || 'false' }}
           LOG_LEVEL: ${{ inputs.log-level || 'info' }}
