@@ -19,3 +19,7 @@ spec:
     fullnameOverride: reloader
     podMonitor:
       enabled: true
+    image:
+      repository: localhost:5050/renovate-test
+      tag: latest
+      pullPolicy: Always
