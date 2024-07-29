@@ -5,21 +5,14 @@
     "github>strg-at/renovate-config//pre-commit/silent-automerge.json5",
     "github>strg-at/renovate-config//terraform/silent-automerge.json5",
   ],
-  packageRules: [
-    {
-      matchManagers: ["kubernetes"],
-      matchDatasources: ["kubernetes-api"],
-      enabled: true,
-    },
-    {
-      matchManagers: ["flux"],
-      enabled: false,
-      matchDepNames: ["/^kind-registry:5000/.*$/"],
-    },
-    {
-      matchManagers: ["helm-values"],
-      enabled: false,
-      matchDepNames: ["/^localhost:5050/.*$/"],
-    },
-  ],
+  // packageRules: [
+  //   {
+  //     matchManagers: ["flux"],
+  //     matchDepNames: [
+  //       "^localhost:.*$",
+  //       "^.*kind-registry:.*$"
+  //     ],
+  //     enabled: false,
+  //   },
+  // ],
 }
