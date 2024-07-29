@@ -8,7 +8,7 @@
   packageRules: [
     {
       matchManagers: ["flux"],
-      matchDepNames: ["^localhost:.*$", "^.*kind-registry:.*$"],
+      matchPackageNames: ["^localhost:.*$", "^.*kind-registry:.*$"],
       enabled: false,
     },
   ],
