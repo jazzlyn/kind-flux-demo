@@ -13,13 +13,13 @@
     },
     {
       matchManagers: ["flux"],
-      matchDepPatterns: ["^kind-registry:5000/.*$"],
       enabled: false,
+      matchDepNames: ["/^kind-registry:5000/.*$/"],
     },
     {
       matchManagers: ["helm-values"],
-      matchDepPatterns: ["^localhost:5050/.*$"],
       enabled: false,
+      matchDepNames: ["/^localhost:5050/.*$/"],
     },
   ],
 }
