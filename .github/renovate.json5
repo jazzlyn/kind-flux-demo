@@ -34,7 +34,6 @@
       },
       matchUpdateTypes: ["major", "minor", "patch", "digest"],
       automerge: false,
-      separateMinorPatch: true,
     },
   ],
 }
