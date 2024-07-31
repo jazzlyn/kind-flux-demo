@@ -16,6 +16,7 @@
       ],
       depNameTemplate: "Aiven-Open/prometheus-exporter-plugin-for-opensearch",
       datasourceTemplate: "github-releases",
+      versioningTemplate: "loose",
     },
   ],
   packageRules: [
