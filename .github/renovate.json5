@@ -9,14 +9,14 @@
   customManagers: [
     {
       customType: "regex",
+      description: "Process GitHub download dependencies in YAML files",
       fileMatch: ["\\.ya?ml(\\.j2)?$"],
       matchStrings: [
-        // https://github.com/Aiven-Open/prometheus-exporter-plugin-for-opensearch/releases/download/2.12.0.0/prometheus-exporter-2.12.0.0.zip
-        // "https://github.com/Aiven-Open/prometheus-exporter-plugin-for-opensearch/releases/download/(?<currentValue>\\d+.\\d+.\\d+)/prometheus-exporter-(?<currentValue>\\d+.\\d+.\\d+).+"
-        "https://github.com/Aiven-Open/prometheus-exporter-plugin-for-opensearch/releases/download/(?<currentValue>\\d+.\\d+.\\d+)/.+",
+        "https:\\/\\/github.com\\/(?<depName>\\S+?\\/\\S+?)\\/releases\\/download\\/(?<currentValue>(v|\\d)\\S+?)\\/\\S+",
       ],
-      depNameTemplate: "Aiven-Open/prometheus-exporter-plugin-for-opensearch",
-      datasourceTemplate: "github-releases",
+      datasourceTemplate: "{{#if datasource}}{{{datasource}}}{{else}}github-releases{{/if}}",
+      versioningTemplate: "{{#if versioning}}{{{versioning}}}{{else}}semver{{/if}}",
+      extractVersionTemplate: "{{#if extractVersion}}{{{extractVersion}}}{{else}}^(?<version>.*)${{/if}}",
     },
   ],
   packageRules: [
