@@ -4,12 +4,38 @@
     "github>strg-at/renovate-config//github-actions/silent-automerge.json5",
     "github>strg-at/renovate-config//pre-commit/silent-automerge.json5",
     "github>strg-at/renovate-config//terraform/silent-automerge.json5",
+    "github>strg-at/renovate-config//docker/ignore-devenv.json5",
+  ],
+  customManagers: [
+    {
+      customType: "regex",
+      fileMatch: ["\\.ya?ml(\\.j2)?$"],
+      matchStrings: [
+        // https://github.com/Aiven-Open/prometheus-exporter-plugin-for-opensearch/releases/download/2.12.0.0/prometheus-exporter-2.12.0.0.zip
+        "https:\\/\\/github.com\\/(?<depName>\\S+?\\/\\S+?)\\/releases\\/download\\/(?<currentValue>(v|\\d)\\S+?)\\/\\S+",
+        "https:\\/\\/github.com\\/(?<depName>\\S+?\\/\\S+?)\\/releases\\/download\\/(?<currentValue>(v|\\d)\\S+?)\\/prometheus-exporter-(\\k<currentValue>)\\.zip",
+        "https:\\/\\/github.com\\/(?<depName>[^\\/]+\\/[^\\/]+)\\/releases\\/download\\/(?<currentValue>[^\\/]+)\\/prometheus-exporter-(\\k<currentValue>)\\.zip",
+      ],
+      depNameTemplate: "Aiven-Open/prometheus-exporter-plugin-for-opensearch",
+      datasourceTemplate: "github-tags",
+    },
   ],
   packageRules: [
     {
-      matchDatasources: ["docker"],
-      matchDepNames: ["/^localhost:.*$/", "/^.*kind-registry:.*$/"],
-      enabled: false,
+      groupName: "opensearch",
+      matchDatasources: ["docker", "github-tags", "github-releases"],
+      matchDepNames: [
+        "opensearch",
+        "Aiven-Open/prometheus-exporter-plugin-for-opensearch",
+      ],
+      group: {
+        commitMessageTopic: "{{{groupName}}} group",
+        commitMessageSuffix: "",
+        semanticCommitScope: "opensearch",
+      },
+      matchUpdateTypes: ["major", "minor", "patch", "digest"],
+      automerge: false,
+      separateMinorPatch: true,
     },
   ],
 }
