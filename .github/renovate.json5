@@ -14,8 +14,8 @@
       matchStrings: [
         "https://github.com/Aiven-Open/prometheus-exporter-plugin-for-opensearch/releases/download/(?<currentValue>(v|\\d)\\S+?)/prometheus-exporter-(?<currentValue>v\\S+?).zip",
       ],
-      depName: "Aiven-Open/prometheus-exporter-plugin-for-opensearch",
-      datasource: "github-releases",
+      depNameTemplate: "Aiven-Open/prometheus-exporter-plugin-for-opensearch",
+      datasourceTemplate: "github-releases",
     },
   ],
   packageRules: [
