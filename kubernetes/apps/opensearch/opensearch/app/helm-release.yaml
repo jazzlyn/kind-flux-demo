@@ -19,5 +19,5 @@ spec:
       enabled: true
       installList:
         - repository-gcs
-        # renovate: depName=Aiven-Open/prometheus-exporter-plugin-for-opensearch datasource=github-tags
+        # https://github.com/Aiven-Open/prometheus-exporter-plugin-for-opensearch
         - https://github.com/Aiven-Open/prometheus-exporter-plugin-for-opensearch/releases/download/2.12.0.0/prometheus-exporter-2.12.0.0.zip
