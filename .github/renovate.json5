@@ -12,7 +12,7 @@
       description: "Process GitHub download dependencies in YAML files",
       fileMatch: ["\\.ya?ml(\\.j2)?$"],
       matchStrings: [
-        "https://github.com/Aiven-Open/prometheus-exporter-plugin-for-opensearch/releases/download/(?<currentValue>(v|\\d)\\S+?)/prometheus-exporter-(?<currentValue2>v\\S+?).zip",
+        "https://github.com/Aiven-Open/prometheus-exporter-plugin-for-opensearch/releases/download/(?<currentValue>\\d\\S+?)/prometheus-exporter-(?<currentValue2>\\S+?).zip",
       ],
       depNameTemplate: "Aiven-Open/prometheus-exporter-plugin-for-opensearch",
       datasourceTemplate: "github-releases",
