@@ -4,16 +4,16 @@ name: renovate
 on:
   workflow_dispatch:
     inputs:
-      dry-run:
-        description: dry-run
-        required: false
-        type: string
-        default: "false"
       log-level:
-        description: log-level
+        description: "log-level (debug, info, warn, error, fatal)"
         required: false
         type: string
-        default: info
+        default: "debug"
+      dry-run:
+        description: "dry-run (extract, lookup, full)"
+        required: false
+        type: string
+        default: "null"
   schedule:
     - cron: 0 0 * * *
   push:
@@ -21,6 +21,7 @@ on:
       - main
     paths:
       - .github/renovate.json5
+      - .github/renovate-bot.json5
       - .github/renovate/**.json5
       - .github/workflows/renovate.yaml
 
@@ -30,31 +31,14 @@ concurrency:
 
 jobs:
   renovate:
-    runs-on: ubuntu-latest
+    uses: strg-at/github-workflows/.github/workflows/run-renovate.yaml@ac385260abbb841598c1740ae222d4f1ab3c9b40 # v1.9.0
     permissions:
       contents: read
-      id-token: write
-    steps:
-      # https://github.com/marketplace/actions/github-app-token
-      - name: generate token
-        id: generate-token
-        uses: tibdex/github-app-token@3beb63f4bd073e61482598c45c71c1019b59b73a # v2.1.0
-        with:
-          app_id: ${{ secrets.JAZZLYN_BOT_GITHUB_APP_ID }}
-          private_key: ${{ secrets.JAZZLYN_BOT_GITHUB_PEM }}
-
-      # https://github.com/marketplace/actions/checkout
-      - name: checkout repository
-        uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332 # v4.1.7
-        with:
-          token: ${{ steps.generate-token.outputs.token }}
-
-      # https://github.com/marketplace/actions/renovate-bot-github-action
-      - name: renovate bot
-        uses: renovatebot/github-action@b266b24b144602ed4f512f0773009d026722f4cc # v40.2.6
-        env:
-          DRY_RUN: ${{ inputs.dry-run || 'false' }}
-          LOG_LEVEL: ${{ inputs.log-level || 'info' }}
-        with:
-          token: ${{ steps.generate-token.outputs.token }}
-          configurationFile: .github/renovate-bot.json5
+    with:
+      runner: '["ubuntu-latest"]'
+      configuration-file: .github/renovate-bot.json5
+      dry-run: ${{ inputs.dry-run || 'null' }}
+      log-level: ${{ inputs.log-level || 'debug' }}
+    secrets:
+      github-app-id: ${{ secrets.JAZZLYN_BOT_GITHUB_APP_ID }}
+      github-app-key: ${{ secrets.JAZZLYN_BOT_GITHUB_PEM }}
