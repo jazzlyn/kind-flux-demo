@@ -78,7 +78,7 @@ jobs:
 
       # https://github.com/alexellis/arkade-get
       - name: install flux
-        uses: alexellis/arkade-get@493cf9387f80dcbf8a85786c55e04de45c927a5c
+        uses: alexellis/arkade-get@b77f515b684ec45bd72cf7de15598a955ebef6de
         with:
           print-summary: false
           flux: latest
