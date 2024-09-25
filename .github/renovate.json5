@@ -9,12 +9,11 @@
   customManagers: [
     {
       customType: "regex",
-      //fileMatch: ["^.*/jenkins/app/helm-release\\.yaml$"],
-      fileMatch: ["\\.ya?ml(\\.j2)?$"],
+      fileMatch: ["jenkins/app/helm-release\\.yaml$"],
       matchStringsStrategy: "recursive",
       matchStrings: [
         "additionalPlugins:[\\s\\w:.-]*?(?:\\r*\\n){2}",
-        "- (?<depName>.*?):(?<currentValue>.*?)\\s",
+        "- (?<depName>.*?):(?<currentValue>.*?)",
       ],
       datasourceTemplate: "jenkins-plugins",
       versioningTemplate: "regex:^(?<major>\\d+)?\\.(?<minor>\\w+?)?(\\.(?<patch>\\d+?))?$",
