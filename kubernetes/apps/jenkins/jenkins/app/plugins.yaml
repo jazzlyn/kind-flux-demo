@@ -1,3 +1,8 @@
 ---
-slack:722.vd07f1ea_7ff40
-terraform:1.0.9
+plugins:
+  - artifactId: slack
+    source:
+      version: 722.vd07f1ea_7ff40
+  - artifactId: terraform
+    source:
+      version: 1.0.9
