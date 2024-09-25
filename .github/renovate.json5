@@ -6,6 +6,20 @@
     "github>strg-at/renovate-config//terraform/silent-automerge.json5",
     "github>strg-at/renovate-config//docker/ignore-devenv.json5",
   ],
+  customManagers: [
+    {
+      customType: "regex",
+      fileMatch: ["^.*/jenkins/app/helm-release\\.yaml$"],
+      matchStringsStrategy: "recursive",
+      matchStrings: [
+        "additionalPlugins:[\\s\\w:.-]*?(?:\\r*\\n){2}",
+        "- (?<depName>.*?):(?<currentValue>.*?)\\s",
+      ],
+      datasourceTemplate: "jenkins-plugins",
+      versioningTemplate: "regex:^(?<major>\\d+)?\\.(?<minor>\\w+?)?(\\.(?<patch>\\d+?))?$",
+    },
+  ],
+
   // customManagers: [
   //   {
   //     customType: "regex",
