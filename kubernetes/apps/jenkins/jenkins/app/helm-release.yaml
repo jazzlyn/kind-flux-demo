@@ -16,6 +16,9 @@ spec:
   # https://artifacthub.io/packages/helm/jenkinsci/jenkins?modal=values
   values:
     controller:
-      additionalPlugins:
+      installPlugins:
+        # renovate: depName=slack datasource=jenkins-plugins versioning=maven extractVersion=^(?<version>.*)$
         - slack:722.vd07f1ea_7ff40
+        # renovate: depName=slack datasource=jenkins-plugins versioning=maven extractVersion=^(?<version>.*)$
+        - slack: 722.vd07f1ea_7ff40
         - terraform:1.0.9
