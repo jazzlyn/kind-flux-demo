@@ -12,7 +12,7 @@
       fileMatch: ["jenkins/app/helm-release\\.yaml$"],
       matchStringsStrategy: "recursive",
       matchStrings: [
-        "additionalPlugins:[\\s\\w:.-]*?(?:\\r*\\n){2}",
+        //"additionalPlugins:[\\s\\w:.-]*?(?:\\r*\\n){2}",
         "- (?<depName>.*?):(?<currentValue>.*?)",
       ],
       datasourceTemplate: "jenkins-plugins",
