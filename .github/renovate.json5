@@ -9,7 +9,8 @@
   customManagers: [
     {
       customType: "regex",
-      fileMatch: ["^.*/jenkins/app/helm-release\\.yaml$"],
+      //fileMatch: ["^.*/jenkins/app/helm-release\\.yaml$"],
+      fileMatch: ["\\.ya?ml(\\.j2)?$"],
       matchStringsStrategy: "recursive",
       matchStrings: [
         "additionalPlugins:[\\s\\w:.-]*?(?:\\r*\\n){2}",
