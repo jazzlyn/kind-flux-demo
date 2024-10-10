@@ -18,6 +18,6 @@ spec:
     controller:
       installPlugins:
         # renovate: depName=slack datasource=jenkins-plugins versioning=maven extractVersion=^(?<version>.*)$
-        - slack:722.vd07f1ea_7ff40
+        - slack:751.v2e44153c8fe1
         # renovate: depName=terraform datasource=jenkins-plugins extractVersion=^(?<version>.*)$
         - terraform:1.0.10
