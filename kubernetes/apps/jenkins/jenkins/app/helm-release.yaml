@@ -1,0 +1,23 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: jenkins
+spec:
+  interval: 15m
+  chart:
+    spec:
+      chart: jenkins
+      version: 5.7.5
+      sourceRef:
+        kind: HelmRepository
+        name: jenkins-charts
+        namespace: flux-system
+  # https://artifacthub.io/packages/helm/jenkinsci/jenkins?modal=values
+  values:
+    controller:
+      installPlugins:
+        # renovate: depName=slack datasource=jenkins-plugins versioning=maven extractVersion=^(?<version>.*)$
+        - slack:722.vd07f1ea_7ff40
+        # renovate: depName=terraform datasource=jenkins-plugins extractVersion=^(?<version>.*)$
+        - terraform:1.0.10
