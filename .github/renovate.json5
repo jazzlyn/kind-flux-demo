@@ -6,6 +6,12 @@
     "github>strg-at/renovate-config//terraform/silent-automerge.json5",
     "github>strg-at/renovate-config//docker/ignore-devenv.json5",
   ],
+  packageRules: [
+    {
+      matchDatasources: ["jenkins-plugins"],
+      enabled: false,
+    },
+  ],
   customManagers: [
     {
       customType: "regex",
