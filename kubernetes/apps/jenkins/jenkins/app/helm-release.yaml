@@ -17,7 +17,5 @@ spec:
   values:
     controller:
       installPlugins:
-        # renovate: depName=slack datasource=jenkins-plugins versioning=maven extractVersion=^(?<version>.*)$
-        - slack:722.vd07f1ea_7ff40
-        # renovate: depName=terraform datasource=jenkins-plugins extractVersion=^(?<version>.*)$
-        - terraform:1.0.10
+        # renovate: depName=script-security datasource=jenkins-plugins versioning=maven extractVersion=^(?<version>.*)$
+        - script-security:1362.v67dc1f0e1b_b_3
