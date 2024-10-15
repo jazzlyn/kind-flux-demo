@@ -12,11 +12,11 @@
       description: "group: jenkins-plugins",
       matchDatasources: ["jenkins-plugins"],
       branchPrefix: "release/",
-      branchTopic: "{{newVersion}}",
+      branchTopic: "{{{newVersion}}}",
       semanticCommitType: "test",
       semanticCommitScope: "jenkins",
       commitMessageTopic: "plugins",
-      commitMessageExtra: "to {{newVersion}}",
+      commitMessageExtra: "to {{{newVersion}}}",
     },
   ],
   customManagers: [
