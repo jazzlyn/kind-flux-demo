@@ -8,8 +8,15 @@
   ],
   packageRules: [
     {
+      groupName: "jenkins-plugins",
+      description: "group: jenkins-plugins",
       matchDatasources: ["jenkins-plugins"],
-      enabled: false,
+      branchPrefix: "release/",
+      branchTopic: "{{newVersion}}",
+      semanticCommitType: "test",
+      semanticCommitScope: "jenkins",
+      commitMessageTopic: "plugins",
+      commitMessageExtra: "to {{newVersion}}",
     },
   ],
   customManagers: [
