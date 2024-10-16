@@ -17,5 +17,9 @@ spec:
   values:
     controller:
       installPlugins:
-        # renovate: depName=script-security datasource=jenkins-plugins versioning=maven extractVersion=^(?<version>.*)$
-        - script-security:1362.v67dc1f0e1b_b_3
+        # renovate: depName=pipeline-utility-steps datasource=jenkins-plugins versioning=maven extractVersion=^(?<version>.*)$
+        - pipeline-utility-steps:2.17.0
+        # renovate: depName=nodejs datasource=jenkins-plugins versioning=maven extractVersion=^(?<version>.*)$
+        - nodejs:1.6.1
+        # renovate: depName=pipeline-groovy-lib datasource=jenkins-plugins versioning=maven extractVersion=^(?<version>.*)$
+        - pipeline-groovy-lib:730.ve57b_34648c63
