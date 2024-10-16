@@ -13,7 +13,6 @@
       description: "group: jenkins-plugins",
       matchDatasources: ["jenkins-plugins"],
       matchUpdateTypes: ["major", "minor", "patch"],
-      versioning: "maven",
       group: {
         semanticCommitType: "test",
         semanticCommitScope: "jenkins",
