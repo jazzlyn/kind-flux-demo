@@ -13,6 +13,7 @@
       matchDatasources: ["jenkins-plugins"],
       branchPrefix: "release/",
       branchTopic: "{{newVersion}}",
+      versioning: "maven",
       semanticCommitType: "test",
       semanticCommitScope: "jenkins",
       commitMessageTopic: "plugins",
