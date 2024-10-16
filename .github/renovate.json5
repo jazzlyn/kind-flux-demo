@@ -12,6 +12,7 @@
       groupName: "jenkins-plugins",
       description: "group: jenkins-plugins",
       matchDatasources: ["jenkins-plugins"],
+      matchUpdateTypes: ["major", "minor", "patch"],
       group: {
         semanticCommitType: "test",
         semanticCommitScope: "jenkins",
