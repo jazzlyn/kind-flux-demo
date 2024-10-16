@@ -29,3 +29,5 @@ spec:
         - popper2-api:2.11.6-4
         # renovate: depName=data-tables-api datasource=jenkins-plugins versioning=maven extractVersion=^(?<version>.*)$
         - data-tables-api:2.0.8-1
+        # renovate: depName=git-client datasource=jenkins-plugins versioning=maven extractVersion=^(?<version>.*)$
+        - git-client:5.0.0
