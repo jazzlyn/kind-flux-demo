@@ -12,12 +12,10 @@
       groupName: "jenkins-plugins",
       description: "group: jenkins-plugins",
       matchDatasources: ["jenkins-plugins"],
-      group: {
-        semanticCommitType: "test",
-        semanticCommitScope: "jenkins",
-        commitMessageTopic: "plugins",
-        commitMessageExtra: "to {{newVersion}}",
-      },
+      semanticCommitType: "test",
+      semanticCommitScope: "jenkins",
+      commitMessageTopic: "plugins",
+      commitMessageExtra: "to {{newVersion}}",
     },
   ],
   customManagers: [
