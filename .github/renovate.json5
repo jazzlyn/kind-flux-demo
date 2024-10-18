@@ -9,18 +9,19 @@
   ],
   packageRules: [
     {
-      groupName: "jenkins-plugins",
-      description: "group: jenkins-plugins",
+      // groupName: "jenkins-plugins",
+      // description: "group: jenkins-plugins",
       matchDatasources: ["jenkins-plugins"],
-      semanticCommitType: "test",
-      semanticCommitScope: "jenkins",
-      commitMessageExtra: "to {{newVersion}}",
-      group: {
-        semanticCommitType: "test",
-        semanticCommitScope: "jenkins",
-        commitMessageTopic: "plugins",
-        commitMessageExtra: "to {{newVersion}}",
-      },
+      enabled: false,
+      // semanticCommitType: "test",
+      // semanticCommitScope: "jenkins",
+      // commitMessageExtra: "to {{newVersion}}",
+      // group: {
+      //   semanticCommitType: "test",
+      //   semanticCommitScope: "jenkins",
+      //   commitMessageTopic: "plugins",
+      //   commitMessageExtra: "to {{newVersion}}",
+      // },
     },
   ],
   customManagers: [
