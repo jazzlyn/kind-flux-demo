@@ -1,0 +1,21 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta2
+kind: HelmRelease
+metadata:
+  name: &app opensearch
+spec:
+  interval: 15m
+  chart:
+    spec:
+      chart: opensearch
+      sourceRef:
+        kind: HelmRepository
+        name: opensearch-charts
+        namespace: flux-system
+  # https://artifacthub.io/packages/helm/opensearch-project-helm-charts/opensearch?modal=values
+  values:
+    sysctl:
+      enabled: false
+    sysctlInit:
+      enabled: true
+    sysctlVmMaxMapCount: 262144
