@@ -5,15 +5,9 @@ metadata:
   name: &app opensearch
 spec:
   interval: 15m
-  chart:
-    spec:
-      chart: opensearch
-      sourceRef:
-        kind: HelmRepository
-        name: opensearch-charts
-        namespace: flux-system
   # https://artifacthub.io/packages/helm/opensearch-project-helm-charts/opensearch?modal=values
   values:
+    opensearchJavaOpts: -Xmx100M -Xms100M
     sysctl:
       enabled: false
     sysctlInit:
