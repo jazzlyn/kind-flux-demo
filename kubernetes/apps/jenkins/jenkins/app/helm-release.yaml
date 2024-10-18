@@ -24,10 +24,10 @@ spec:
         # renovate: depName=pipeline-groovy-lib datasource=jenkins-plugins versioning=maven extractVersion=^(?<version>.*)$
         - pipeline-groovy-lib:730.ve57b_34648c63
         # renovate: depName=git-client datasource=jenkins-plugins versioning=maven extractVersion=^(?<version>.*)$
-        - git-client:5.0.0
+        - git-client:6.1.0
         # renovate: depName=popper2-api datasource=jenkins-plugins versioning=maven extractVersion=^(?<version>.*)$
         - popper2-api:2.11.6-5
         # renovate: depName=data-tables-api datasource=jenkins-plugins versioning=maven extractVersion=^(?<version>.*)$
         - data-tables-api:2.0.8-1
         # renovate: depName=git-client datasource=jenkins-plugins versioning=maven extractVersion=^(?<version>.*)$
-        - git-client:5.0.0
+        - git-client:6.1.0
