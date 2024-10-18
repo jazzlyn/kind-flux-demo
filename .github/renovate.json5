@@ -23,6 +23,14 @@
       //   commitMessageExtra: "to {{newVersion}}",
       // },
     },
+    {
+      matchFileNames: ["kubernetes/**/integration/**"],
+      additionalBranchPrefix: "integration-",
+    },
+    {
+      matchFileNames: ["kubernetes/**/staging/**"],
+      additionalBranchPrefix: "staging-",
+    },
   ],
   customManagers: [
     {
