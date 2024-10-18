@@ -6,7 +6,7 @@ metadata:
 spec:
   chart:
     spec:
-      version: 2.23.2
+      version: 2.26.0
       chart: opensearch
       sourceRef:
         kind: HelmRepository
