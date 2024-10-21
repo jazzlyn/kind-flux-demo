@@ -26,10 +26,12 @@
     {
       matchFileNames: ["kubernetes/**/integration/**"],
       additionalBranchPrefix: "integration-",
+      commitMessageSuffix: "integration",
     },
     {
       matchFileNames: ["kubernetes/**/staging/**"],
       additionalBranchPrefix: "staging-",
+      commitMessageSuffix: "staging",
     },
   ],
   customManagers: [
