@@ -15,3 +15,8 @@ spec:
   # https://artifacthub.io/packages/helm/opensearch-project-helm-charts/opensearch?modal=values
   values:
     opensearchJavaOpts: -Xmx512M -Xms512M
+    plugins:
+      enabled: true
+      installList:
+        - repository-gcs
+        - https://github.com/Aiven-Open/prometheus-exporter-plugin-for-opensearch/releases/download/2.16.0.0/prometheus-exporter-2.16.0.0.zip
