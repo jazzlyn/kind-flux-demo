@@ -6,7 +6,7 @@ metadata:
 spec:
   chart:
     spec:
-      version: 2.23.2
+      version: 2.26.0
       chart: opensearch
       sourceRef:
         kind: HelmRepository
@@ -19,4 +19,4 @@ spec:
       enabled: true
       installList:
         - repository-gcs
-        - https://github.com/Aiven-Open/prometheus-exporter-plugin-for-opensearch/releases/download/2.16.0.0/prometheus-exporter-2.16.0.0.zip
+        - https://github.com/Aiven-Open/prometheus-exporter-plugin-for-opensearch/releases/download/2.17.1.0/prometheus-exporter-2.17.1.0.zip
