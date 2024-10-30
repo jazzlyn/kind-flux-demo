@@ -6,35 +6,10 @@
     "github>strg-at/renovate-config//github-actions/silent-automerge.json5",
     "github>strg-at/renovate-config//pre-commit/silent-automerge.json5",
     "github>strg-at/renovate-config//terraform/silent-automerge.json5",
+    "github>strg-at/renovate-config//dependencies/environment-separation.json5",
+    "github>strg-at/renovate-config//dependencies/flux.json5",
     "github>strg-at/renovate-config//dependencies/opensearch.json5",
     "github>strg-at/renovate-config//docker/ignore-devenv.json5",
-  ],
-  packageRules: [
-    {
-      // groupName: "jenkins-plugins",
-      // description: "group: jenkins-plugins",
-      matchDatasources: ["jenkins-plugins"],
-      enabled: false,
-      // semanticCommitType: "test",
-      // semanticCommitScope: "jenkins",
-      // commitMessageExtra: "to {{newVersion}}",
-      // group: {
-      //   semanticCommitType: "test",
-      //   semanticCommitScope: "jenkins",
-      //   commitMessageTopic: "plugins",
-      //   commitMessageExtra: "to {{newVersion}}",
-      // },
-    },
-    {
-      matchFileNames: ["kubernetes/**/integration/**"],
-      additionalBranchPrefix: "integration-",
-      commitMessageSuffix: "integration",
-    },
-    {
-      matchFileNames: ["kubernetes/**/staging/**"],
-      additionalBranchPrefix: "staging-",
-      commitMessageSuffix: "staging",
-    },
   ],
   customManagers: [
     {
