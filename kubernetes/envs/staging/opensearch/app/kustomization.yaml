@@ -6,3 +6,10 @@ resources:
   - ../../../base/opensearch/helm-release.yaml
 patches:
   - path: helm-values.yaml
+configMapGenerator:
+  - name: opensearch-config
+    behavior: create
+    files:
+      - opensearch.yml=opensearch.yaml
+generatorOptions:
+  disableNameSuffixHash: true

@@ -5,11 +5,32 @@ metadata:
   name: &app opensearch
 spec:
   interval: 15m
+  timeout: 30m
+  install:
+    crds: CreateReplace
+  upgrade:
+    cleanupOnFail: true
+    crds: CreateReplace
   # https://artifacthub.io/packages/helm/opensearch-project-helm-charts/opensearch?modal=values
   values:
+    podAnnotations:
+      reloader.stakater.com/auto: "true"
     opensearchJavaOpts: -Xmx100M -Xms100M
     sysctl:
       enabled: false
     sysctlInit:
       enabled: true
     sysctlVmMaxMapCount: 262144
+  postRenderers:
+    # we want to use our configuration, this will disable/bypass the config area in the original chart
+    - kustomize:
+        patches:
+          - target:
+              version: v1
+              group: apps
+              kind: StatefulSet
+              name: opensearch-cluster-master
+            patch: |
+              - op: replace
+                path: /spec/template/spec/volumes/0/configMap/name
+                value: opensearch-config
