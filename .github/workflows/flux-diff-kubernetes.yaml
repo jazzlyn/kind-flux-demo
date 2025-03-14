@@ -13,7 +13,7 @@ jobs:
     permissions:
       contents: read
       pull-requests: write
-    uses: strg-at/github-workflows/.github/workflows/flux-diff.yaml@d4189e724a81f20b199661fb928863b83cfdf8d6 # v1.10.1
+    uses: strg-at/github-workflows/.github/workflows/flux-diff.yaml@c0aed53f3ebe80af1bd75925292e1dd25bbb78bd # v1.10.2
     with:
       runner: '["ubuntu-latest"]'
     secrets:
